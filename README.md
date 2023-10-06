@@ -12,6 +12,8 @@ npm run dev
 
 I started with `npx express-generator-typescript server`, but found it confusing and instead went with: https://blog.logrocket.com/how-to-set-up-node-typescript-express/
 
+## Adding typescript manually to a vanilla node project
+
 in a new server folder I run `npm init --yes`
 
 `npm install express dotenv`
@@ -30,3 +32,59 @@ npm install -D concurrently nodemon
 }
 
 I might try it with ts-node too, but for now let's see if I can add an API endpoint
+OK, I added this to vite.config.ts
+
+```
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      "/api/health": "http://localhost:8000/",
+    },
+  },
+});
+```
+
+and I have a route in index.ts:
+
+```
+app.get("/api/health", getHealth);
+```
+
+and it works.
+
+So, now let's look at ts-node
+
+## ts-node
+
+Rename server to express-server and make a new server folder. In it:
+
+npm install typescript ts-node --save
+npm install express dotenv --save
+
+copy over
+express-server/
+--index.ts
+--routes
+--.env (but have it use port 8888)
+
+add a scripts field to package.json with `"dev": "ts-node index.ts"`
+
+When I run the "both" script, I see: `error TS7016: Could not find a declaration file for module 'express'... Try npm i --save-dev @types/express`
+
+after I do that, I see `Could not find a declaration file for module './routes/health' ... implicitly has an 'any' type`
+
+I ended up on https://github.com/TypeStrong/ts-node/issues/935 where I learned that putting this in tsconfig.json
+
+```
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+    },
+    "ts-node": {
+      "experimentalResolver": true
+    }
+  }
+```
+
+allowed me to load the vite page and make an api call to express run by ts-node
