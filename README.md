@@ -1,4 +1,6 @@
 I am going to start on the new version of the pain app because it's too hard to comment out all the broken stuff in the orginal repo
+I'm loosely following https://github.com/NathanKr/react-vite-express-setup
+
 mkdir take-this-paint
 cd take-this-paint/
 npm create vite@latest client
