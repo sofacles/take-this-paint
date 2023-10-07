@@ -12,7 +12,7 @@ function App() {
       .then((resp) => resp.json())
       .then((data) => {
         debugger;
-        return setPaints(data);
+        setPaints(JSON.stringify(data));
       });
   }, []);
 
