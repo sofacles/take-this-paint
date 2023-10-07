@@ -87,4 +87,31 @@ I ended up on https://github.com/TypeStrong/ts-node/issues/935 where I learned t
   }
 ```
 
-allowed me to load the vite page and make an api call to express run by ts-node
+allowed me to load the vite page and make an api call to express run by ts-node.
+
+## Mongoose
+
+npm i mongoose --save
+So, I learned that the factory pattern I was following in PaintChip was useful and necessary. I've been thinking that constructing mongoose models like:
+
+```
+const PaintCanSchema = new mongoose.Schema({ color: "red"}
+```
+
+was using the mongoose object that you get when you `import` mongoose. But all the setting up of error, connect and disconnect event handlers that I was doing in `mongooseConnection.js` and then calling `mongoose.connect(uri, options)` has to have happened to that mongoose object for model methods to work.
+
+All that `mongooseConnection` exports now is a function that takes a callback argument. The function subscribes to the `connected` handler:
+
+```
+const onConnected = (cb) => {
+  mongoose.connection.on("connected", () => cb(mongoose)); // mongoose arg has been set up while the module is loading
+};
+```
+
+```
+//index.ts
+onConnected((mg) => {
+  connectedMongoose = mg;
+  HydrateModels(mg);
+});
+```

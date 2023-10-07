@@ -1,10 +1,19 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 import getHealth from "./routes/health";
-import { get } from "http";
+import { getPaints } from "./routes/paint";
+import { onConnected } from "./data/mongooseConnection";
+import { HydrateModels } from "./data/models";
 
 dotenv.config();
+let connectedMongoose;
+
+onConnected((mg) => {
+  connectedMongoose = mg;
+  HydrateModels(mg);
+});
 
 const app: Express = express();
 const port = process.env.PORT;
@@ -14,6 +23,7 @@ app.get("/", (_: Request, res: Response) => {
 });
 
 app.get("/api/health", getHealth);
+app.get("/api/paints", getPaints);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
