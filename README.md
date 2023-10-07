@@ -92,7 +92,7 @@ allowed me to load the vite page and make an api call to express run by ts-node.
 ## Mongoose
 
 npm i mongoose --save
-So, I learned that the factory pattern I was following in PaintChip was useful and necessary. I've been thinking that constructing mongoose models like:
+So, I learned that the factory pattern I was following in PaintChip was useful and necessary. I've been thinking that constructing mongoose models like this:
 
 ```
 const PaintCanSchema = new mongoose.Schema({ color: "red"}
@@ -100,18 +100,47 @@ const PaintCanSchema = new mongoose.Schema({ color: "red"}
 
 was using the mongoose object that you get when you `import` mongoose. But all the setting up of error, connect and disconnect event handlers that I was doing in `mongooseConnection.js` and then calling `mongoose.connect(uri, options)` has to have happened to that mongoose object for model methods to work.
 
-All that `mongooseConnection` exports now is a function that takes a callback argument. The function subscribes to the `connected` handler:
+All that `mongooseConnection` exports now is a function that that returns a promise. The function subscribes to the `connected` and `error` handler:
 
 ```
-const onConnected = (cb) => {
-  mongoose.connection.on("connected", () => cb(mongoose)); // mongoose arg has been set up while the module is loading
+const Connect = () => {
+  return new Promise((resolve, reject) => {
+    mongoose.connection.on("connected", () => {
+      resolve(mongoose);
+    });
+    mongoose.connection.on("error", (err) => {
+      reject(err);
+    });
+  });
 };
 ```
 
 ```
 //index.ts
-onConnected((mg) => {
-  connectedMongoose = mg;
-  HydrateModels(mg);
+Connect()
+  .then((mg) => {
+    HydrateModels(mg);
+
+    app.get("blah", getBlah);
+    app.use(whatever)
+
+    app.listen(port, () => {
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+If you call:
+
+```
+mongoose.connect('mongodb://127.0.0.1:27017/dbThatDoesntExist', {
+  authSource: _config.authSource,
+  user: _config.user,
+  pass: _config.pass,
 });
 ```
+
+You will get a new database called "dbThatDoesntExist".

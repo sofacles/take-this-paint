@@ -43,4 +43,15 @@ const onConnected = (cb) => {
   mongoose.connection.on("connected", () => cb(mongoose));
 };
 
-export { onConnected };
+const Connect = () => {
+  return new Promise((resolve, reject) => {
+    mongoose.connection.on("connected", () => {
+      resolve(mongoose);
+    });
+    mongoose.connection.on("error", (err) => {
+      reject(err);
+    });
+  });
+};
+
+export default Connect;
