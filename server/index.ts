@@ -8,23 +8,19 @@ import { onConnected } from "./data/mongooseConnection";
 import { HydrateModels } from "./data/models";
 
 dotenv.config();
-let connectedMongoose;
-
-onConnected((mg) => {
-  connectedMongoose = mg;
-  HydrateModels(mg);
-});
 
 const app: Express = express();
 const port = process.env.PORT;
 
-app.get("/", (_: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
+onConnected((mg) => {
+  HydrateModels(mg);
+  app.get("/", (_: Request, res: Response) => {
+    res.send("Express + TypeScript Server");
+    app.get("/api/health", getHealth);
+    app.get("/api/paints", getPaints);
 
-app.get("/api/health", getHealth);
-app.get("/api/paints", getPaints);
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    app.listen(port, () => {
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    });
+  });
 });
