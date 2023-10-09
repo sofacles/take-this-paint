@@ -144,3 +144,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/dbThatDoesntExist', {
 ```
 
 You will get a new database called "dbThatDoesntExist".
+
+How to make vite server images out of the nodejs public folder:
+
+```
+{
+//vite.config.js
+publicDir: "../server/public", //goes right up out of the client app into the server
+}
+
+```
