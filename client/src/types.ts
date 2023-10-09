@@ -7,3 +7,7 @@ export type PaintType = {
   quantity: string;
   sheen: string;
 };
+
+export type PaintTileProps = {
+  paintUnit: PaintType;
+};

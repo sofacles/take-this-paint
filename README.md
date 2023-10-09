@@ -154,3 +154,13 @@ publicDir: "../server/public", //goes right up out of the client app into the se
 }
 
 ```
+
+One thing that's gotten me a few times now:
+
+connectedMongoose.model(
+"PersonWithEmailSchema",
+PersonWithEmailSchema,
+"personWithEmail" // I keep skipping this 3rd argument, which is the name of the collection in mongoDB
+);
+
+If you skip the third argument, it just silently fails.

@@ -1,14 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PaintType } from "./types";
+import { PaintTileProps } from "./types";
 
-type ImageTileProps = {
-  paintUnit: PaintType;
-};
-
-export const ImageTile = (props: ImageTileProps) => {
+export const ImageTile = ({ paintUnit }: PaintTileProps) => {
   console.log("Image Tile");
-  const { paintUnit } = props;
+
   const rgbStyle = {
     height: "90%",
     //boxSizing: "borderBox",

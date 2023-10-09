@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { PaintType } from "./types";
-//import OppositeColor from "../OppositeColor";
+import { PaintTileProps } from "./types";
+import OppositeColor from "./OppositeColor";
 
 // Used when there is no image, just an RGB value for the paint
 //TODO: unit test that makes sure either RGB or image file is in the POST
-export const PaintTile = (paintUnit: PaintType) => {
+export const PaintTile = ({ paintUnit }: PaintTileProps) => {
   const { name, rgb } = paintUnit;
   const rgbStyle = {
     height: "100%",

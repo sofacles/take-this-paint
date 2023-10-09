@@ -11,9 +11,8 @@
 
 .App nav ul {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   list-style-type: none;
-  width: 100%;
   padding: 0;
 }
 
@@ -30,9 +29,28 @@
   display: none;
 }
 
+.home {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.home h1 {
+  text-align: center;
+}
+
+.donate-paint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 .donate-paint label,
 .paint-detail label {
   display: block;
+  text-align: center;
 }
 
 .donate-paint aside {
