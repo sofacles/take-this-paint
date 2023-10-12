@@ -4,6 +4,7 @@ import GiveAwayPaint from "./GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
 import Layout from "./Layout";
+import ActivePaints from "./admin/ActivePaints";
 
 import "./App.css";
 
@@ -40,6 +41,15 @@ function App() {
           element={
             <Layout>
               <ThankYou />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <Layout>
+              <ActivePaints />
             </Layout>
           }
         />

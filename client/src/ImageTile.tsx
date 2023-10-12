@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { PaintTileProps } from "./types";
 
 export const ImageTile = ({ paintUnit }: PaintTileProps) => {
-  console.log("Image Tile");
-
   const rgbStyle = {
     height: "90%",
     //boxSizing: "borderBox",

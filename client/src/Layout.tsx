@@ -16,6 +16,9 @@ function Layout({ children }: PropsWithChildren) {
           <li>
             <Link to="/view-paints">View paints</Link>
           </li>
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
         </ul>
       </nav>
       {children}
