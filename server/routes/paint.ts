@@ -17,11 +17,12 @@ const router = express.Router();
 
 const _config: configType = config.dev;
 
-const getPaints = async (_, res) => {
+const getPaints = async (_, res, next) => {
   try {
     const paints = await PaintCanModel.find({});
 
     res.status(200).json(paints);
+    next();
   } catch (error) {
     res.status(500).json({ err: error });
   }

@@ -5,6 +5,7 @@ import Home from "./Home";
 import ThankYou from "./ThankYou";
 import Layout from "./Layout";
 import ActivePaints from "./admin/ActivePaints";
+import Login from "./admin/Login";
 
 import "./App.css";
 
@@ -50,6 +51,14 @@ function App() {
           element={
             <Layout>
               <ActivePaints />
+            </Layout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <Login />
             </Layout>
           }
         />

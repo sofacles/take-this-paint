@@ -19,6 +19,9 @@ function Layout({ children }: PropsWithChildren) {
           <li>
             <Link to="/admin">Admin</Link>
           </li>
+          <li>
+            <Link to="/login">Login (admin)</Link>
+          </li>
         </ul>
       </nav>
       {children}
