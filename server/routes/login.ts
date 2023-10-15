@@ -1,8 +1,9 @@
-import { UserModel } from "../data/models";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 import express from "express";
 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+
+import { UserModel } from "../data/models";
 import {
   ACCESS_TOKEN_LIFESPAN,
   AUTH_COOKIE_LIFESPAN,
@@ -14,7 +15,6 @@ const router = express.Router();
 const Login = async (req, res) => {
   try {
     const userModel = await UserModel.findOne({ email: req.body.email });
-    debugger;
     if (!userModel) {
       res.status(400).json({
         status: "failure",
@@ -46,7 +46,9 @@ const Login = async (req, res) => {
         expiresIn: REFRESH_TOKEN_LIFESPAN,
       });
 
-      req.session.accessToken = accessToken;
+      if (req.session) {
+        req.session.accessToken = accessToken;
+      }
 
       res.cookie("refresh-jwt", refreshToken, {
         httpOnly: true,

@@ -13,16 +13,14 @@ const Login = () => {
     const email = "Dusty28@cuffcoates.com"; //emailRef.current?.value;
     const pwd = "Frijoles19"; //passwordRef.current?.value;
 
-    let formData = new FormData();
-    formData.append("imageName", uuidv4());
     if (email && email.length > 3 && pwd && pwd.length > 6) {
       const response = await fetch("/api/login/", {
         method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          "Content-Type": "application/json",
+        },
         // referrerPolicy: "no-referrer",
-        body: formData, // JSON.stringify({ email, password: pwd }), // body data type must match "Content-Type" header
+        body: JSON.stringify({ email, password: pwd }), // body data type must match "Content-Type" header
       });
 
       if (response.status === 200) {

@@ -1,5 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+
+const session = require("express-session");
 
 import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
@@ -9,12 +12,27 @@ import loginRouter from "./routes/login";
 import path from "path";
 import config from "../config/config";
 import { configType } from "../config/types";
+import {
+  ACCESS_TOKEN_LIFESPAN,
+  AUTH_COOKIE_LIFESPAN,
+  REFRESH_TOKEN_LIFESPAN,
+} from "./constants";
 
 dotenv.config();
+const _config: configType = config.dev;
 
 const app: Express = express();
+app.use(bodyParser.json());
+app.use(
+  session({
+    secret: _config.oauthLoginSecret,
+    saveUninitialized: true,
+    cookie: { maxAge: AUTH_COOKIE_LIFESPAN },
+    resave: false,
+  })
+);
 const port = process.env.PORT;
-const _config: configType = config.dev;
+
 process.env.SECRET = _config.oauthLoginSecret;
 
 Connect()

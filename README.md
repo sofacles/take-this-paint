@@ -164,3 +164,23 @@ PersonWithEmailSchema,
 );
 
 If you skip the third argument, it just silently fails.
+
+Whenever you add a new api url, you have to add it to vite.config.ts!
+
+After you require express-session in index.ts,
+
+```
+const session = require("express-session"); //my other imports are imports.  I guess you can both import and require in the same file in TS.
+```
+
+you need to:
+app.use(
+session({
+secret: "some secret you should probably hide",
+saveUninitialized: true,
+cookie: { maxAge: 6 _ 60 _ 60 \* 1000 },
+resave: false,
+})
+);
+
+..or else in your route files, req.session will be undefined.

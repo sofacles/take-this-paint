@@ -9,6 +9,7 @@ export default defineConfig({
     proxy: {
       "/api/health": "http://localhost:8888/",
       "/api/paints": "http://localhost:8888/",
+      "/api/login": "http://localhost:8888/",
     },
   },
 });
