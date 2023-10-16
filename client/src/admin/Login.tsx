@@ -1,8 +1,10 @@
-import React, { SyntheticEvent, useRef, useState } from "react";
+import React, { SyntheticEvent, useRef, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { AuthContext } from "../useAuthContext";
 
 const Login = () => {
+  const { setIsLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -26,9 +28,11 @@ const Login = () => {
       if (response.status === 200) {
         const json = await response.json();
         if (json.message === "User Logged In!") {
-          navigate("/admin/users");
+          setIsLoggedIn(true);
+          navigate("/admin");
         }
       } else {
+        setIsLoggedIn(false);
         setLoginFailed(true);
       }
     }

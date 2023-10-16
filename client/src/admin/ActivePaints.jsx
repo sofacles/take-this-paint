@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { PaintCan } from './PaintCan';
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { PaintCan } from "./PaintCan";
+import { AuthContext } from "../useAuthContext";
 
 const PaintChipAdmin = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  if (!isLoggedIn) {
+    navigate("/login");
+  }
   const [paintChips, setPaintChips] = useState([
     {
-      rgb: '',
-      brand: '',
-      name: '',
-      quantity: '',
-      email: '',
-      _id: '1',
+      rgb: "",
+      brand: "",
+      name: "",
+      quantity: "",
+      email: "",
+      _id: "1",
     },
   ]);
 
