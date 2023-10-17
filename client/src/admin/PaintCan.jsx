@@ -1,24 +1,23 @@
-import React from 'react';
+import React from "react";
 
 export const PaintCan = ({ paintUnit, onDelete }) => {
   const imgStyle = {
-    height: '90%',
+    height: "90%",
   };
 
   const rgbStyle = {
     backgroundColor: `#${paintUnit.rgb}`,
-    height: '30px',
-    width: '160px',
+    height: "30px",
+    width: "160px",
   };
 
   const deletePaint = () => {
-    fetch(`/api/admin/PaintCan?id=${paintUnit._id}`, { method: 'DELETE' })
+    fetch(`/api/admin/paints?id=${paintUnit._id}`, { method: "DELETE" })
       .then((x) => {
-        return x.text();
+        return x.json();
       })
-      .then((t) => {
-        let resp = JSON.parse(t);
-        if (resp.data.result === 'delete succeeded') {
+      .then((resp) => {
+        if (resp.data.result === "success") {
           onDelete(paintUnit._id);
         }
       });
