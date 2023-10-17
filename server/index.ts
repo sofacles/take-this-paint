@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
-import session from "express-session"; //TODO: Get a better understanding of what combinations of require/import ts/js I can use in here.  Whether I need *.d.ts files for .js...
+import session from "express-session";
 import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
 import adminPaintRouter from "./routes/admin/paint";

@@ -14,10 +14,10 @@ const ThankYou = () => {
         <p>
           It's nice that you took the trouble to do this. If we find a recipient
           for your paint, you'll have saved some resources, saved somebody else
-          some money and freed up some space in your house!{" "}
+          some money and freed up some space on your shelf!
         </p>
         <p>
-          <Link to="/view-paints">View Paints</Link> Hey, where is this?
+          <Link to="/view-paints">View Paints</Link>
         </p>
       </div>
     </div>
