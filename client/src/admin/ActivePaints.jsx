@@ -4,11 +4,15 @@ import { PaintCan } from "./PaintCan";
 import { AuthContext } from "../useAuthContext";
 
 const PaintChipAdmin = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  //const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  if (!isLoggedIn) {
-    navigate("/login");
-  }
+
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, [isLoggedIn]);
+
   const [paintChips, setPaintChips] = useState([
     {
       rgb: "",
@@ -21,10 +25,15 @@ const PaintChipAdmin = () => {
   ]);
 
   useEffect(() => {
-    fetch(`/api/paints?zip=12345`)
-      .then((x) => x.text())
+    fetch(`/api/admin/paints?zip=12345`)
+      .then((x) => {
+        if (x.status === 401) {
+          navigate("/login"); //TODO: move this 401 check into useAuthContext?
+        }
+        return x.json();
+      })
       .then((t) => {
-        setPaintChips(JSON.parse(t));
+        setPaintChips(t);
       });
   }, []);
 

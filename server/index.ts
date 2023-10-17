@@ -2,10 +2,10 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
-const session = require("express-session");
-
+import session from "express-session"; //TODO: Get a better understanding of what combinations of require/import ts/js I can use in here.  Whether I need *.d.ts files for .js...
 import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
+import adminPaintRouter from "./routes/admin/paint";
 import Connect from "./data/mongooseConnection";
 import { HydrateModels } from "./data/models";
 import loginRouter from "./routes/login";
@@ -46,6 +46,7 @@ Connect()
     app.use("/api/login", loginRouter);
     app.get("/api/health", getHealth);
     app.use("/api/paints", paintRouter);
+    app.use("/api/admin/paints", adminPaintRouter);
 
     app.use(function (err, req, res, next) {
       // set locals, only providing error in development
