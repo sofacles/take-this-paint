@@ -11,16 +11,13 @@ function Layout({ children }: PropsWithChildren) {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/give-away">Give away paint</Link>
+            <Link to="/give-away">Give away</Link>
           </li>
           <li>
             <Link to="/view-paints">View paints</Link>
           </li>
           <li>
             <Link to="/admin">Admin</Link>
-          </li>
-          <li>
-            <Link to="/login">Login (admin)</Link>
           </li>
         </ul>
       </nav>

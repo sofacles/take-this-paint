@@ -1,4 +1,3 @@
-import path from "path";
 import express from "express";
 import fs from "fs/promises";
 import { PaintCanModel } from "../../data/models";
@@ -20,8 +19,9 @@ const getPaints = async (_, res, next) => {
 const deletePaint = async (req, res) => {
   let doomedPaint = await PaintCanModel.findOne({ _id: req.query.id });
   if (doomedPaint.imageName) {
-    const imagePath =
-      __dirname + `/../../public/uploads/resized/${doomedPaint.imageName}`;
+    const imagePath = `${process.cwd()}/public/uploads/resized/${
+      doomedPaint.imageName
+    }`;
     try {
       await fs.unlink(imagePath);
     } catch (error) {

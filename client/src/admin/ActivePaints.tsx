@@ -1,17 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PaintCan } from "./PaintCan";
-import { AuthContext } from "../useAuthContext";
 
 const PaintChipAdmin = () => {
-  //const { isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate("/login");
-  //   }
-  // }, [isLoggedIn]);
 
   const [paintChips, setPaintChips] = useState([
     {
@@ -37,7 +29,7 @@ const PaintChipAdmin = () => {
       });
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     setPaintChips(paintChips.filter((p) => p._id !== id));
   };
   let thePaints = paintChips.map((chip) => {

@@ -1,6 +1,11 @@
 import React from "react";
+import { PaintTileProps } from "../types";
 
-export const PaintCan = ({ paintUnit, onDelete }) => {
+interface AdminPaintTypeType extends PaintTileProps {
+  onDelete: (id: string) => void;
+}
+
+export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
   const imgStyle = {
     height: "90%",
   };

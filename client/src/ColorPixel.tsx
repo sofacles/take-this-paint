@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import "./App.css";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
-import OppositeColor from "./OppositeColor";
+import ComplementaryColor from "./OppositeColor";
+import { RGB } from "./types";
 
 const HexValues = [
   "0",
@@ -22,8 +23,12 @@ const HexValues = [
   "F",
 ];
 
-const ColorPixel = (props) => {
-  const hexValue = HexValues[props.r] + HexValues[props.g] + HexValues[props.b];
+export interface ColorPixelProps extends RGB {
+  updateSelectedValue: (color: string) => void;
+}
+
+const ColorPixel = ({ r, g, b, updateSelectedValue }: ColorPixelProps) => {
+  const hexValue = HexValues[r] + HexValues[g] + HexValues[b];
   const [blueValue, blueValueSet] = useContext(ThirdColorContext);
   let style = {
     backgroundColor: "#" + hexValue,
@@ -31,15 +36,15 @@ const ColorPixel = (props) => {
   };
 
   if (blueValue.selectedHexValue === hexValue + "") {
-    style.border = `1px solid #${OppositeColor(hexValue)}`;
+    style.border = `1px solid #${ComplementaryColor(hexValue)}`;
   }
 
   return (
     <div
       className="color-pixel"
-      onClick={(evt) => {
+      onClick={() => {
         blueValueSet({ ...blueValue, selectedHexValue: hexValue });
-        props.updateSelectedValue(hexValue);
+        updateSelectedValue(hexValue);
       }}
       style={style}
     />

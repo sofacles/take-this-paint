@@ -11,3 +11,9 @@ export type PaintType = {
 export type PaintTileProps = {
   paintUnit: PaintType;
 };
+
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}

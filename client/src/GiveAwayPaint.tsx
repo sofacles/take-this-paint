@@ -15,12 +15,15 @@ import ValidationRulesObj from "./PaintFormValidationRules";
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
 
+interface KeyValueCollection {
+  [key: string]: string;
+}
+
 const GiveAwayPaint = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState({ preview: "", data: "" });
-  const [status, setStatus] = useState("");
 
-  const onValidationSuccess = async (fields) => {
+  const onValidationSuccess = async (fields: KeyValueCollection) => {
     let formData = new FormData();
     formData.append("imageName", uuidv4());
     formData.append("uploadPhoto", image.data);
@@ -47,7 +50,7 @@ const GiveAwayPaint = () => {
     onValidationSuccess,
     ValidationRulesObj
   );
-  const onColorSelected = (color) => {
+  const onColorSelected = (color: string) => {
     setField({
       target: {
         name: "rgb",
@@ -230,7 +233,7 @@ const GiveAwayPaint = () => {
           <h4>
             You can also use the
             <ToggleContent
-              toggle={(show) => (
+              toggle={(show: () => void) => (
                 <span
                   className="emphasize-on-hover"
                   onClick={(e) => {
@@ -240,7 +243,7 @@ const GiveAwayPaint = () => {
                   color picker
                 </span>
               )}
-              content={(hide) => (
+              content={(hide: () => void) => (
                 <Modal>
                   <ColorPicker onColorChosen={onColorSelected} />
                   <button
@@ -256,7 +259,7 @@ const GiveAwayPaint = () => {
             />
           </h4>
           <ToggleContent
-            toggle={(show) => (
+            toggle={(show: () => void) => (
               <p>
                 <RgbIcon
                   onClick={(e) => {
@@ -266,7 +269,7 @@ const GiveAwayPaint = () => {
                 <RgbDisplay onColorChosen={onColorSelected} />
               </p>
             )}
-            content={(hide) => (
+            content={(hide: () => void) => (
               <Modal>
                 <ColorPicker onColorChosen={onColorSelected} />
                 <button
@@ -319,7 +322,6 @@ const GiveAwayPaint = () => {
           </div>
         </div>
       </form>
-      <img src="/api/pageview?pg=donate" />
     </div>
   );
 };
