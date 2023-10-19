@@ -5,3 +5,5 @@ This is a react app that lets people give away their partial cans of paint after
 The idea is that somebody will be able to send you a mail through Nodemailer with a randomized to and from address, like craigslist does, so the two of you can meet and you can get rid of your paint.
 
 After I get the mail-relaying working, I plan to move from my hand-written css to tailwind. I will also get rid of the hard coded login/password values, obviously.
+
+The users are stored in mongodb, and I'm using mongoose to access the paints and the users obfuscated email addresses. I'm resizing the images with multer and storing them in my static images folder.
