@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import BucketIcon from "./BucketIcon";
 
 const Home = () => {
-  //OK, they will have seen this once, I can set a cookie so the default page is BrowsePaint
+  //TODO: they will have seen this once, I can set a cookie so the default page is BrowsePaint
   document.cookie = "HasSeenHomeScreen=true";
 
   return (
-    <div className="home">
-      <h1>Site under construction</h1>
-
+    <div className="max-w-screen-xl">
       <BucketIcon />
 
       <p>
