@@ -20,14 +20,11 @@ function ViewPaints() {
   };
 
   let theTiles = paints?.map((chip) => {
-    if (chip.imageName && chip.imageName.length > 3) {
-      return <ImageTile key={chip._id} paintUnit={chip} />;
-    }
-    return <PaintTile key={chip._id} paintUnit={chip} />;
+    return <ImageTile key={chip._id} paintUnit={chip} />;
   });
   return (
     <>
-      <div style={homeStyle}> {theTiles}</div>
+      <div className="flex justify-around flex-wrap"> {theTiles}</div>
     </>
   );
 }

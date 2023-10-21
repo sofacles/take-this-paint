@@ -9,6 +9,7 @@ import multer from "multer";
 
 import config from "../../config/config";
 import { configType } from "../../config/types";
+import { sendGMailToConfirmDonorsAddress } from "../gmailService";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 
@@ -78,7 +79,7 @@ const addPaint = async (req, res) => {
     Logger.info(`resized photo upload path: ${newPath}`);
     //I should maybe figure out how to offload this work to another service
     try {
-      await sharp(req.file.path).resize(256).png().toFile(newPath);
+      await sharp(req.file.path).resize(200).png().toFile(newPath);
     } catch (error) {
       Logger.error("Exception caught resizing", JSON.stringify(error));
     }
@@ -109,7 +110,7 @@ const addPaint = async (req, res) => {
       return res.send({ msg: "Unable to save paint." });
     });
 
-    // // sendGMailToConfirmDonorsAddress(postedPaint.email, personWithEmailObj.secret);
+    //sendGMailToConfirmDonorsAddress(postedPaint.email, personWithEmailObj.secret);
     return res.send({ msg: "Paint saved!" });
   } catch (error) {
     Logger.info(JSON.stringify(error));

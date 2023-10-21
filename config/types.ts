@@ -3,6 +3,13 @@ const config = {
     email: "user1@aol.com",
     password: "password",
   },
+  baseUrl: "http://localhost:3000/",
+  gmailAPI: {
+    clientId: "123456789-rtwertyuyuioertyuioertyui.apps.braniff.com",
+    clientSecret: "12345678901234567890mmmmmmmmmm",
+    refreshToken: "A long string of characters",
+    user: "mail@foo.com",
+  },
   authSource: "admin",
   user: "user",
   pass: "pass",

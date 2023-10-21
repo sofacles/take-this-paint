@@ -4,6 +4,7 @@ import GiveAwayPaint from "./GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
 import Layout from "./Layout";
+import { ThirdColorProvider } from "./ThirdColor/ThirdColorContext";
 import ActivePaints from "./admin/ActivePaints";
 import Login from "./admin/Login";
 import { AuthContextProvider } from "./useAuthContext";
@@ -27,7 +28,9 @@ function App() {
             path="/give-away"
             element={
               <Layout>
-                <GiveAwayPaint />
+                <ThirdColorProvider>
+                  <GiveAwayPaint />
+                </ThirdColorProvider>
               </Layout>
             }
           />

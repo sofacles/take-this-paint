@@ -25,3 +25,4 @@ dist-ssr
 
 config/config.ts
 public
+server/credentials.json

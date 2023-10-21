@@ -3,18 +3,21 @@ import "./App.css";
 import { ColorPixel } from "./ColorPixel";
 import ThirdColorControl from "./ThirdColor/ThirdColorControl";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
-import { TwoDotAxisLabel } from "./TwoDotAxisLabel";
+import { ColorPickerAxisLabel } from "./ColorPickerAxisLabel";
 import ComplementaryColor from "./OppositeColor";
 
 export type ColorPickerProps = { onColorChosen: (color: string) => void };
 const ColorPicker = ({ onColorChosen }: ColorPickerProps) => {
   const COLOR_MAX = 15;
-  const [blueValue] = useContext(ThirdColorContext);
+  const [blueValue, setBlueValue, isDefault, setIsDefault] =
+    useContext(ThirdColorContext);
 
   // Each row will have all the possible values of green for the given value of red
   const rows = [];
-  const onNewValue = (color) => {
+  const onNewValue = (color: string) => {
     onColorChosen(color);
+    setBlueValue({ ...blueValue, selectedHexValue: color });
+    setIsDefault(false);
   };
 
   for (let rValue = COLOR_MAX; rValue >= 0; rValue--) {
@@ -38,23 +41,24 @@ const ColorPicker = ({ onColorChosen }: ColorPickerProps) => {
   }
 
   let selectedColorStyle = {
-    backgroundColor: "#" + blueValue.selectedHexValue,
-    color: "#" + ComplementaryColor(blueValue.selectedHexValue),
+    color: "#" + blueValue.selectedHexValue,
   };
 
   return (
-    <div className="color-picker-container">
-      <div className="color-picker-holder">
-        <TwoDotAxisLabel color="#f00" />
+    <div className="flex flex-col items-center justify-items-stretch h-64">
+      <div className="flex flex-row">
         <div>
-          <TwoDotAxisLabel orientation="horizontal" color="#0f0" />
-          <div className="color-picker">{rows}</div>
+          <div>{rows}</div>
         </div>
         <ThirdColorControl />
       </div>
-      <div className="selected-color" style={selectedColorStyle}>
-        {blueValue.selectedHexValue !== "choose color" && "#"}
-        {blueValue.selectedHexValue}
+      <div
+        className={`my-6 ${isDefault ? "text-sm" : "text-2xl"}`}
+        style={selectedColorStyle}
+      >
+        {isDefault
+          ? "click on the box and arrows to get started"
+          : `#${blueValue.selectedHexValue}`}
       </div>
     </div>
   );

@@ -1,15 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BucketIcon from "./BucketIcon";
 
 const Home = () => {
-  //TODO: they will have seen this once, I can set a cookie so the default page is BrowsePaint
+  //TODO: fix
   document.cookie = "HasSeenHomeScreen=true";
 
   return (
-    <div className="max-w-screen-xl">
-      <BucketIcon />
-
+    <div className="px-6 py-4">
       <p>
         You've finished painting and there's half a gallon of paint left. You
         can't take it back to the paint store because it's already been tinted.

@@ -1,6 +1,5 @@
 import React, { SyntheticEvent, useRef, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../useAuthContext";
 
 const Login = () => {
@@ -12,16 +11,15 @@ const Login = () => {
 
   const doSubmit = async (evt: SyntheticEvent) => {
     evt.preventDefault();
-    const email = "Dusty28@cuffcoates.com"; //emailRef.current?.value;
-    const pwd = "Frijoles19"; //passwordRef.current?.value;
+    const email = emailRef.current?.value;
+    const pwd = passwordRef.current?.value;
 
-    if (email && email.length > 3 && pwd && pwd.length > 6) {
+    if (email && email.length > 3 && pwd && pwd.length > 5) {
       const response = await fetch("/api/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        // referrerPolicy: "no-referrer",
         body: JSON.stringify({ email, password: pwd }), // body data type must match "Content-Type" header
       });
 
@@ -41,25 +39,49 @@ const Login = () => {
   };
 
   return (
-    <div>
-      Login
-      <form onSubmit={doSubmit}>
-        <p>
-          email: <input type="text" ref={emailRef} />
-        </p>
-        <p>
-          password: <input type="text" ref={passwordRef} />
-        </p>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            doSubmit(e);
-          }}
-        >
-          submit
-        </button>
+    <div className="mx-auto py-6">
+      <form onSubmit={doSubmit} className="space-y-6 mt-8">
+        <h1 className="text-2xl text-emerald-700">Admin log in</h1>
+
+        <div className="sm:flex sm:flex-wrap justify-end">
+          <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+            <label htmlFor="email">Email:</label>
+          </span>
+          <input
+            className="ml-10 sm:ml-0 w-2/3"
+            id="email"
+            ref={emailRef}
+            type="text"
+          />
+        </div>
+        <div className="sm:flex sm:flex-wrap justify-end">
+          <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+            <label htmlFor="password">Password:</label>
+          </span>
+          <input
+            className="ml-10 sm:ml-0 w-2/3"
+            id="password"
+            ref={passwordRef}
+            type="text"
+          />
+        </div>
+        {loginFailed && (
+          <div className="px-10 sm:px-0 w-full text-right text-red-400">
+            Login failed.
+          </div>
+        )}
+        <div className="flex justify-end">
+          <button
+            className="mx-10 sm:mx-0 bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md"
+            onClick={(e) => {
+              e.preventDefault();
+              doSubmit(e);
+            }}
+          >
+            submit
+          </button>
+        </div>
       </form>
-      {loginFailed && <div>Login failed.</div>}
     </div>
   );
 };

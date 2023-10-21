@@ -1,14 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { ToggleContent } from "./ToggleContent";
-import { ThirdColorProvider } from "./ThirdColor/ThirdColorContext";
+import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
 import SelectOtherInput from "./select-other-input/SelectOtherInput";
 import ColorPicker from "./ColorPicker";
 import Modal from "./Modal";
-import { RgbDisplay } from "./RgbDisplay";
-import { RgbIcon } from "./RgbIcon";
 import UseForm from "./UseForm";
 import ValidationRulesObj from "./PaintFormValidationRules";
 
@@ -22,6 +19,14 @@ interface KeyValueCollection {
 const GiveAwayPaint = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState({ preview: "", data: "" });
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  // whether they've selected a color in the color picker
+  const [colorSelected, setColorSelected] = useState(false);
+
+  const [step1Completed, setStep1Completed] = useState(false);
+
+  const [blueValue, setBlueValue, isDefault, setIsDefault] =
+    useContext(ThirdColorContext);
 
   const onValidationSuccess = async (fields: KeyValueCollection) => {
     let formData = new FormData();
@@ -59,269 +64,336 @@ const GiveAwayPaint = () => {
     });
   };
 
+  let selectedColorStyle = {
+    color: "#" + blueValue.selectedHexValue,
+  };
+
   return (
-    <div>
-      <form
-        name="give-away-paint"
-        encType="multipart/form-data"
-        onSubmit={(e) => handleSubmit(e)}
-        className="donate-paint"
-      >
-        <h2>I want to give away some paint!</h2>
-
-        <Link to="/view-paints">Back to Paints</Link>
-        <SelectOtherInput
-          id="brand"
-          onNewValue={(newValue) => {
-            setField({
-              target: {
-                name: "brand",
-                value: newValue,
-              },
-            });
-          }}
-          onBlur={(e) => {
-            blurField(e);
-          }}
-          initialValues={[
-            "- choose -",
-            "Sherwin-Williams",
-            "Farrow & Ball",
-            "Miller",
-            "Behr",
-            "Dunn-Edwards",
-            "Glidden",
-            "Rodda",
-            "Benjamin Moore",
-            "other",
-          ]}
-          label="Brand:"
-        />
-        {errors.brand && (
-          <p className="error">
-            <span>{errors.brand}</span>
-          </p>
-        )}
-
-        <label htmlFor="name">Color Name:</label>
-        <input
-          name="name"
-          id="name"
-          onChange={(e) => {
-            setField(e);
-          }}
-          onBlur={(e) => {
-            blurField(e);
-          }}
-        />
-        {errors.name && (
-          <p className="error">
-            <span>{errors.name}</span>
-          </p>
-        )}
-
-        <SelectOtherInput
-          id="quantity"
-          onNewValue={(newValue) => {
-            setField({
-              target: {
-                name: "quantity",
-                value: newValue,
-              },
-            });
-          }}
-          onBlur={(e) => {
-            blurField(e);
-          }}
-          initialValues={[
-            "- choose -",
-            "about a quart",
-            "less than a gallon",
-            "less than two gallons",
-            "less than five gallons",
-            "other",
-          ]}
-          label="Quantity:"
-        />
-
-        {errors.quantity && (
-          <p className="error">
-            <span>{errors.quantity}</span>
-          </p>
-        )}
-
-        <label htmlFor="sheen">Sheen:</label>
-        <select
-          name="sheen"
-          id="sheen"
-          onChange={(e) => {
-            setField(e);
-          }}
-          onBlur={(e) => {
-            blurField(e);
-          }}
+    <div className="mt-8 bg-green-50 sm:mx-auto sm:w-full sm:max-w-md md:max-w-lg lg:max-w-3xl">
+      <div className="py-8 px-6 shadow rounded-lg sm:px-10 ">
+        <form
+          className="space-y-6 mb-0"
+          name="give-away-paint"
+          encType="multipart/form-data"
+          onSubmit={(e) => handleSubmit(e)}
         >
-          <option value="">--</option>
-          <option value="flat">flat</option>
-          <option value="eggshell">eggshell</option>
-          <option value="semi">semi gloss</option>
-          <option value="gloss">high gloss</option>
-        </select>
-
-        <label htmlFor="email">Email:</label>
-        <input
-          name="email"
-          id="email"
-          onChange={(e) => {
-            setField(e);
-          }}
-          onBlur={(e) => {
-            blurField(e);
-          }}
-        />
-        {errors.email && (
-          <p className="error">
-            <span>{errors.email}</span>
-          </p>
-        )}
-
-        <label htmlFor="confirmEmail">Confirm Email:</label>
-        <input
-          name="confirmEmail"
-          id="confirmEmail"
-          onChange={(e) => {
-            setField(e);
-          }}
-          onBlur={(e) => {
-            blurField(e, true);
-          }}
-        />
-        {errors.confirmEmail && (
-          <p className="error">
-            <span data-testid="confirm-email-error">{errors.confirmEmail}</span>
-          </p>
-        )}
-
-        <label htmlFor="zipCode">Zip Code:</label>
-        <input
-          name="zipCode"
-          id="zipCode"
-          onChange={(e) => {
-            setField(e);
-          }}
-          onBlur={(e) => {
-            blurField(e, true);
-          }}
-        />
-        {errors.zipCode && (
-          <p className="error">
-            <span data-testid="zip-code-error">{errors.zipCode}</span>
-          </p>
-        )}
-
-        <h4>Take a picture of something you painted </h4>
-        <input
-          type="file"
-          name="uploadPhoto"
-          onChange={(e) => {
-            handleFileChange(e);
-            setField(e);
-          }}
-        />
-
-        <ThirdColorProvider>
-          <h4>
-            You can also use the
-            <ToggleContent
-              toggle={(show: () => void) => (
-                <span
-                  className="emphasize-on-hover"
-                  onClick={(e) => {
-                    show();
-                  }}
+          <h1 className="text-lg font-semibold text-emerald-700">
+            Give somebody your old paint.
+          </h1>
+          <section
+            className={`space-y-6 mb-0 ${step1Completed ? "hidden" : ""}`}
+          >
+            <h2 className="text-emerald-700">
+              Step 1: give people something to look at
+            </h2>
+            <div className="flex flex-wrap">
+              <span className="w-1/3 flex justify-end p-2">
+                <label
+                  className="block  text-sm  text-gray-900 dark:text-white"
+                  htmlFor="name"
                 >
-                  color picker
+                  Upload a photo:
+                </label>
+              </span>
+              <div className="w-2/3 flex items-center">
+                <input
+                  type="file"
+                  className="text-sm text-stone-500
+                  file:mr-5 file:py-1 file:px-2 file:border-[1px]
+                  file:text-xs file:font-medium file:rounded-md
+                  file:bg-emerald-300 
+                  hover:file:cursor-pointer hover:file:bg-emerald-100
+                  hover:file:text-stone-800"
+                  id="uploadPhoto"
+                  name="uploadPhoto"
+                  onChange={(e) => {
+                    handleFileChange(e);
+                    setField(e);
+                  }}
+                />
+              </div>
+            </div>
+
+            {!colorSelected && (
+              <div className="flex flex-wrap">
+                <span className="w-1/3 flex justify-end p-2">
+                  <label
+                    className="block text-sm  text-gray-900 dark:text-white"
+                    htmlFor="name"
+                  >
+                    Or pick a color:
+                  </label>
                 </span>
-              )}
-              content={(hide: () => void) => (
-                <Modal>
-                  <ColorPicker onColorChosen={onColorSelected} />
+                <div className="w-2/3 flex items-center">
                   <button
+                    className="border border-emerald-800 bg-emerald-300  hover:bg-emerald-100 p-1 text-xs font-medium rounded-md"
                     onClick={(e) => {
+                      e.stopPropagation();
                       e.preventDefault();
-                      hide();
+                      setShowColorPicker(true);
                     }}
                   >
-                    Close
+                    Color picker
                   </button>
-                </Modal>
-              )}
-            />
-          </h4>
-          <ToggleContent
-            toggle={(show: () => void) => (
-              <p>
-                <RgbIcon
-                  onClick={(e) => {
-                    show();
-                  }}
-                ></RgbIcon>
-                <RgbDisplay onColorChosen={onColorSelected} />
-              </p>
+                </div>
+              </div>
             )}
-            content={(hide: () => void) => (
-              <Modal>
+            {colorSelected && (
+              <h2 style={selectedColorStyle} className="text-2xl">
+                color #{blueValue.selectedHexValue}
+              </h2>
+            )}
+            {showColorPicker && (
+              <div className="border-slate-800 border-2 flex flex-col py-6">
                 <ColorPicker onColorChosen={onColorSelected} />
                 <button
+                  className="bg-green-300 mx-8 rounded-md hover:bg-emerald-100"
                   onClick={(e) => {
+                    e.stopPropagation();
                     e.preventDefault();
-                    hide();
+                    setShowColorPicker(false);
+                    setColorSelected(true);
                   }}
                 >
-                  Close
+                  done
                 </button>
-              </Modal>
+              </div>
             )}
-          />
-        </ThirdColorProvider>
-        {errors.atLeastOne && (
-          <p className="error">
-            <span data-testid="confirm-email-error">{errors.atLeastOne}</span>
-          </p>
-        )}
+            {errors.atLeastOne && (
+              <p className="error">
+                <span data-testid="confirm-email-error">
+                  {errors.atLeastOne}
+                </span>
+              </p>
+            )}
+            <div className="flex flex-row justify-end">
+              <button
+                className="bg-emerald-300 border-2 text-sm hover:bg-emerald-100 border-emerald-800 p-1 rounded-md disabled:opacity-50"
+                disabled={!colorSelected && image.data.length === 0}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  if (!errors.atLeastOne) {
+                    setStep1Completed(true);
+                  }
+                }}
+              >
+                done
+              </button>
+            </div>
+          </section>
 
-        <p>
-          <label htmlFor="save" className="hidden">
-            {" "}
-            post your paint{" "}
-          </label>
-          <input type="submit" value="save" id="save" />
-        </p>
-
-        <div>
-          Icons made by{" "}
-          <a
-            href="https://www.flaticon.com/authors/roundicons"
-            title="Roundicons"
+          <section
+            className={`space-y-6 mb-0 ${step1Completed ? "" : "hidden"}`}
           >
-            Roundicons
-          </a>{" "}
-          from{" "}
-          <a href="https://www.flaticon.com/" title="Flaticon">
-            www.flaticon.com
-          </a>
-          <div>
-            Icons made by{" "}
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-              Freepik
-            </a>{" "}
-            from{" "}
-            <a href="https://www.flaticon.com/" title="Flaticon">
-              www.flaticon.com
-            </a>
-          </div>
-        </div>
-      </form>
+            <div
+              className={`flex flex-row justify-center ${
+                image.data.length === 0 ? "hidden" : ""
+              }`}
+            >
+              <img src={image.preview} width="100px" height="100px" />
+            </div>
+            {colorSelected && (
+              <span
+                style={selectedColorStyle}
+                className="text-2xl flex flex-row justify-center"
+              >
+                #{blueValue.selectedHexValue}
+              </span>
+            )}
+          </section>
+          <section
+            className={`space-y-3 sm:space-y-6 mb-0 ${
+              step1Completed ? "" : "hidden"
+            }`}
+          >
+            <h2 className="text-emerald-700">
+              Last step: Enter paint details and an email address for us to
+              relay
+            </h2>
+            <div className="sm:flex sm:flex-wrap">
+              <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+                <label htmlFor="name">Color name:</label>
+              </span>
+              <input
+                className="ml-10 sm:ml-0 w-2/3"
+                name="name"
+                id="name"
+                onChange={(e) => {
+                  setField(e);
+                }}
+                onBlur={(e) => {
+                  blurField(e);
+                }}
+              />
+              {errors.name && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span>{errors.name}</span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap">
+              <SelectOtherInput
+                id="brand"
+                onNewValue={(newValue) => {
+                  setField({
+                    target: {
+                      name: "brand",
+                      value: newValue,
+                    },
+                  });
+                }}
+                onBlur={(e) => {
+                  blurField(e);
+                }}
+                initialValues={[
+                  "- choose -",
+                  "Sherwin-Williams",
+                  "Farrow & Ball",
+                  "Miller",
+                  "Behr",
+                  "Dunn-Edwards",
+                  "Glidden",
+                  "Rodda",
+                  "Benjamin Moore",
+                  "other",
+                ]}
+                label="Brand:"
+              />
+              {errors.brand && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span>{errors.brand}</span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap">
+              <SelectOtherInput
+                id="quantity"
+                onNewValue={(newValue) => {
+                  setField({
+                    target: {
+                      name: "quantity",
+                      value: newValue,
+                    },
+                  });
+                }}
+                onBlur={(e) => {
+                  blurField(e);
+                }}
+                initialValues={[
+                  "- choose -",
+                  "about a quart",
+                  "less than a gallon",
+                  "less than two gallons",
+                  "less than five gallons",
+                  "other",
+                ]}
+                label="Quantity:"
+              />
+              {errors.quantity && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span>{errors.quantity}</span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap">
+              <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+                <label htmlFor="email">Email:</label>
+              </span>
+              <input
+                className="ml-10 sm:ml-0 w-2/3"
+                name="email"
+                id="email"
+                onChange={(e) => {
+                  setField(e);
+                }}
+                onBlur={(e) => {
+                  blurField(e);
+                }}
+              />
+              {errors.email && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span>{errors.email}</span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap">
+              <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+                <label htmlFor="confirmEmail">Confirm email:</label>
+              </span>
+              <input
+                className="ml-10 sm:ml-0 w-2/3"
+                name="confirmEmail"
+                id="confirmEmail"
+                onChange={(e) => {
+                  setField(e);
+                }}
+                onBlur={(e) => {
+                  blurField(e, true);
+                }}
+              />
+              {errors.confirmEmail && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span data-testid="confirm-email-error">
+                    {errors.confirmEmail}
+                  </span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap justify-end">
+              <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+                <label htmlFor="zipCode">Zip code:</label>
+              </span>
+              <input
+                className="ml-10 sm:ml-0 w-2/3"
+                name="zipCode"
+                id="zipCode"
+                onChange={(e) => {
+                  setField(e);
+                }}
+                onBlur={(e) => {
+                  blurField(e, true);
+                }}
+              />
+              {errors.zipCode && (
+                <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right">
+                  <span data-testid="zip-code-error">{errors.zipCode}</span>
+                </p>
+              )}
+            </div>
+            <div className="sm:flex sm:flex-wrap justify-end">
+              <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
+                <label htmlFor="sheen">Sheen:</label>
+              </span>
+              <select
+                className="ml-10 sm:ml-0 w-2/3"
+                name="sheen"
+                id="sheen"
+                onChange={(e) => {
+                  setField(e);
+                }}
+                onBlur={(e) => {
+                  blurField(e);
+                }}
+              >
+                <option value="">--</option>
+                <option value="flat">flat</option>
+                <option value="eggshell">eggshell</option>
+                <option value="semi">semi gloss</option>
+                <option value="gloss">high gloss</option>
+              </select>
+            </div>
+            <div className="sm:flex sm:flex-wrap sm:justify-end">
+              <input
+                className="bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md"
+                type="submit"
+                value="save"
+                id="save"
+              />
+            </div>
+          </section>
+        </form>
+      </div>
     </div>
   );
 };

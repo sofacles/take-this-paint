@@ -1,12 +1,15 @@
 import React from "react";
 
 const PaintBucket = () => {
+  let sideLength = "32";
+
   return (
     <svg
       enableBackground="new 0 0 510 510"
-      height="132"
+      fill="rgb(110,231,183)"
+      height={sideLength}
       viewBox="0 0 510 510"
-      width="132"
+      width={sideLength}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="m160.984 208.41-114.97-114.97c-14.41-14.41-14.41-37.865 0-52.275 14.433-14.432 37.806-14.48 52.286 0l93.526 93.526 21.444-21.444-93.526-93.526c-26.324-26.304-68.856-26.286-95.163 0-26.234 26.234-26.234 68.929 0 95.163l114.97 114.96z" />
