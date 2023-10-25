@@ -62,7 +62,7 @@ const Login = () => {
             className="ml-10 sm:ml-0 w-2/3"
             id="password"
             ref={passwordRef}
-            type="text"
+            type="password"
           />
         </div>
         {loginFailed && (
