@@ -24,7 +24,7 @@ const GiveAwayPaint = () => {
 
   const [step1Completed, setStep1Completed] = useState(false);
 
-  const { blueValue } = useContext(ThirdColorContext);
+  const { blueValue, isDefault } = useContext(ThirdColorContext);
 
   const onValidationSuccess = async (fields: KeyValueCollection) => {
     let formData = new FormData();
@@ -167,12 +167,13 @@ const GiveAwayPaint = () => {
             <div className="flex flex-row justify-end">
               <button
                 className="bg-emerald-300 border-2 text-sm hover:bg-emerald-100 border-emerald-800 p-1 rounded-md disabled:opacity-50"
-                disabled={!colorSelected && image.data.length === 0}
+                disabled={isDefault && image.data.length === 0}
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
                   if (!errors.atLeastOne) {
                     setStep1Completed(true);
+                    setColorSelected(!isDefault);
                   }
                 }}
               >
