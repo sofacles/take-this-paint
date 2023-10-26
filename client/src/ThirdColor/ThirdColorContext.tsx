@@ -10,14 +10,17 @@ const initialValue = {
   selectedHexValue: "777",
 };
 
-const ThirdColorContext = createContext<
-  [
-    state: ColorContextType,
-    setState: Dispatch<SetStateAction<ColorContextType>>,
-    isDefault: boolean,
-    setIsDefault: Dispatch<SetStateAction<boolean>>
-  ]
->([initialValue, () => {}, true, () => {}]);
+const ThirdColorContext = createContext<{
+  blueValue: ColorContextType;
+  setBlueValue: Dispatch<SetStateAction<ColorContextType>>;
+  isDefault: boolean;
+  setIsDefault: Dispatch<SetStateAction<boolean>>;
+}>({
+  blueValue: initialValue,
+  setBlueValue: () => {},
+  isDefault: true,
+  setIsDefault: () => {},
+});
 
 // The Red varies with the Y axis of color picker, Green varies with the X axis, and I have a slider
 // component that changes the blue value of all the squares in the grid as it goes up and down.
@@ -28,14 +31,14 @@ type ColorContextType = {
 };
 
 const ThirdColorProvider = ({ children }: PropsWithChildren) => {
-  const [state, setState] = useState<ColorContextType>({
+  const [blueValue, setBlueValue] = useState<ColorContextType>({
     thirdColorLevel: 7,
     selectedHexValue: "777",
   });
   const [isDefault, setIsDefault] = useState(true);
   return (
     <ThirdColorContext.Provider
-      value={[state, setState, isDefault, setIsDefault]}
+      value={{ blueValue, setBlueValue, isDefault, setIsDefault }}
     >
       {children}
     </ThirdColorContext.Provider>

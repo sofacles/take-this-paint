@@ -29,7 +29,7 @@ export interface ColorPixelProps extends RGB {
 
 const ColorPixel = ({ r, g, b, updateSelectedValue }: ColorPixelProps) => {
   const hexValue = HexValues[r] + HexValues[g] + HexValues[b];
-  const [blueValue, blueValueSet] = useContext(ThirdColorContext);
+  const { blueValue, setBlueValue } = useContext(ThirdColorContext);
   let style = {
     backgroundColor: "#" + hexValue,
     border: `1px solid #${hexValue}`,
@@ -43,7 +43,7 @@ const ColorPixel = ({ r, g, b, updateSelectedValue }: ColorPixelProps) => {
     <div
       className="color-pixel"
       onClick={() => {
-        blueValueSet({ ...blueValue, selectedHexValue: hexValue });
+        setBlueValue({ ...blueValue, selectedHexValue: hexValue });
         updateSelectedValue(hexValue);
       }}
       style={style}

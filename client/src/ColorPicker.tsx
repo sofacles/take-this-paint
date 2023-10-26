@@ -9,7 +9,7 @@ import ComplementaryColor from "./OppositeColor";
 export type ColorPickerProps = { onColorChosen: (color: string) => void };
 const ColorPicker = ({ onColorChosen }: ColorPickerProps) => {
   const COLOR_MAX = 15;
-  const [blueValue, setBlueValue, isDefault, setIsDefault] =
+  const { blueValue, setBlueValue, isDefault, setIsDefault } =
     useContext(ThirdColorContext);
 
   // Each row will have all the possible values of green for the given value of red

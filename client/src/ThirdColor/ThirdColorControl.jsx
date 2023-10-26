@@ -3,7 +3,7 @@ import { ThirdColorContext } from "./ThirdColorContext";
 import Arrow from "./Arrow";
 
 const ThirdColorControl = () => {
-  const [blueValue, setBlueValue, isDefault, setIsDefault] =
+  const { blueValue, setBlueValue, isDefault, setIsDefault } =
     useContext(ThirdColorContext);
 
   const MAX_COLOR = 15;
@@ -13,7 +13,6 @@ const ThirdColorControl = () => {
       if (b.thirdColorLevel < MAX_COLOR) {
         const oldBlu = parseInt(isDefault ? "7" : b.selectedHexValue[2], 16);
         let newBlu = oldBlu + 1;
-        //TODO: OMG get rid of this giant object I'm setting
         return {
           ...blueValue,
           thirdColorLevel: b.thirdColorLevel + 1,

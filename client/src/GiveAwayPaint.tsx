@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
 import SelectOtherInput from "./select-other-input/SelectOtherInput";
 import ColorPicker from "./ColorPicker";
-import Modal from "./Modal";
 import UseForm from "./UseForm";
 import ValidationRulesObj from "./PaintFormValidationRules";
 
@@ -25,8 +24,7 @@ const GiveAwayPaint = () => {
 
   const [step1Completed, setStep1Completed] = useState(false);
 
-  const [blueValue, setBlueValue, isDefault, setIsDefault] =
-    useContext(ThirdColorContext);
+  const { blueValue } = useContext(ThirdColorContext);
 
   const onValidationSuccess = async (fields: KeyValueCollection) => {
     let formData = new FormData();
