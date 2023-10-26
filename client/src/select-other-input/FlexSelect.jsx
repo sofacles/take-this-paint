@@ -12,7 +12,7 @@ const FlexSelect = (props) => {
 
   return (
     <select
-      className="flex w-2/3 ml-10 sm:ml-0 "
+      className="flex w-2/3 ml-10 sm:ml-0 rounded-md"
       value={props.selectedValue}
       id={props.id}
       name={props.id}

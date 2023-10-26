@@ -89,7 +89,13 @@ function Layout({ children }: PropsWithChildren) {
           </div>
         </div>
       </nav>
-      {children}
+      <div
+        onClick={() => {
+          setHamburgerClicked(false);
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

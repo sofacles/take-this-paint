@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import "./App.css";
+
 import { ColorPixel } from "./ColorPixel";
+import ComplementaryColor from "./OppositeColor";
+import { ColorPickerAxisLabel } from "./ColorPickerAxisLabel";
 import ThirdColorControl from "./ThirdColor/ThirdColorControl";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
-import { ColorPickerAxisLabel } from "./ColorPickerAxisLabel";
-import ComplementaryColor from "./OppositeColor";
+
+import "./App.css";
 
 export type ColorPickerProps = { onColorChosen: (color: string) => void };
 const ColorPicker = ({ onColorChosen }: ColorPickerProps) => {

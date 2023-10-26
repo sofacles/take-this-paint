@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const ThankYou = () => {
   return (
     <div className="px-6 py-4">
-      <h1>Hey, Thanks for making your paint available!</h1>
+      <h1 className="mb-4">Hey, Thanks for making your paint available!</h1>
       <div>
         Check your email for a confirmation link and click on the link inside.
         After you confirm, we'll put your paint on our site. If somebody is

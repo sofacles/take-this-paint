@@ -1,16 +1,17 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
-import SelectOtherInput from "./select-other-input/SelectOtherInput";
-import ColorPicker from "./ColorPicker";
-import UseForm from "./UseForm";
-import ValidationRulesObj from "./PaintFormValidationRules";
 
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import UseForm from "./UseForm";
+import ColorPicker from "./ColorPicker";
+import ComplementaryColor from "./OppositeColor";
+import ValidationRulesObj from "./PaintFormValidationRules";
+import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
+import SelectOtherInput from "./select-other-input/SelectOtherInput";
 interface KeyValueCollection {
   [key: string]: string;
 }
@@ -62,7 +63,14 @@ const GiveAwayPaint = () => {
     });
   };
 
-  let selectedColorStyle = {
+  let okBtnStyle = {
+    backgroundColor: isDefault ? "" : `#${blueValue.selectedHexValue}`,
+    color: isDefault
+      ? "black"
+      : `#${ComplementaryColor(blueValue.selectedHexValue)}`,
+  };
+
+  let selectedColorText = {
     color: "#" + blueValue.selectedHexValue,
   };
 
@@ -96,7 +104,7 @@ const GiveAwayPaint = () => {
               <div className="w-2/3 flex items-center">
                 <input
                   type="file"
-                  className="text-sm text-stone-500
+                  className="text-sm text-black
                   file:mr-5 file:py-1 file:px-2 file:border-[1px]
                   file:text-xs file:font-medium file:rounded-md
                   file:bg-emerald-300 
@@ -137,7 +145,7 @@ const GiveAwayPaint = () => {
               </div>
             )}
             {colorSelected && (
-              <h2 style={selectedColorStyle} className="text-2xl">
+              <h2 style={selectedColorText} className="text-2xl">
                 color #{blueValue.selectedHexValue}
               </h2>
             )}
@@ -145,7 +153,10 @@ const GiveAwayPaint = () => {
               <div className="border-slate-800 border-2 flex flex-col py-6">
                 <ColorPicker onColorChosen={onColorSelected} />
                 <button
-                  className="bg-green-300 mx-8 rounded-md hover:bg-emerald-100"
+                  style={okBtnStyle}
+                  className={`${
+                    isDefault ? "bg-green-300" : ""
+                  } mx-8 rounded-md hover:bg-emerald-100`}
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
@@ -153,7 +164,7 @@ const GiveAwayPaint = () => {
                     setColorSelected(true);
                   }}
                 >
-                  done
+                  OK
                 </button>
               </div>
             )}
@@ -185,6 +196,18 @@ const GiveAwayPaint = () => {
           <section
             className={`space-y-6 mb-0 ${step1Completed ? "" : "hidden"}`}
           >
+            <div className="w-full pr-16 text-right">
+              <a
+                href="#"
+                className="text-sm underline hover:text-emerald-500 hover:no-underline"
+                onClick={(e) => {
+                  setStep1Completed(false);
+                  setShowColorPicker(true);
+                }}
+              >
+                edit
+              </a>
+            </div>
             <div
               className={`flex flex-row justify-center ${
                 image.data.length === 0 ? "hidden" : ""
@@ -194,7 +217,7 @@ const GiveAwayPaint = () => {
             </div>
             {colorSelected && (
               <span
-                style={selectedColorStyle}
+                style={selectedColorText}
                 className="text-2xl flex flex-row justify-center"
               >
                 #{blueValue.selectedHexValue}
@@ -215,7 +238,7 @@ const GiveAwayPaint = () => {
                 <label htmlFor="name">Color name:</label>
               </span>
               <input
-                className="ml-10 sm:ml-0 w-2/3"
+                className="ml-10 sm:ml-0 w-2/3 rounded-md"
                 name="name"
                 id="name"
                 onChange={(e) => {
@@ -300,7 +323,7 @@ const GiveAwayPaint = () => {
                 <label htmlFor="email">Email:</label>
               </span>
               <input
-                className="ml-10 sm:ml-0 w-2/3"
+                className="ml-10 sm:ml-0 w-2/3 rounded-md"
                 name="email"
                 id="email"
                 onChange={(e) => {
@@ -321,7 +344,7 @@ const GiveAwayPaint = () => {
                 <label htmlFor="confirmEmail">Confirm email:</label>
               </span>
               <input
-                className="ml-10 sm:ml-0 w-2/3"
+                className="ml-10 sm:ml-0 w-2/3 rounded-md"
                 name="confirmEmail"
                 id="confirmEmail"
                 onChange={(e) => {
@@ -344,7 +367,7 @@ const GiveAwayPaint = () => {
                 <label htmlFor="zipCode">Zip code:</label>
               </span>
               <input
-                className="ml-10 sm:ml-0 w-2/3"
+                className="ml-10 sm:ml-0 w-2/3 rounded-md"
                 name="zipCode"
                 id="zipCode"
                 onChange={(e) => {
@@ -365,7 +388,7 @@ const GiveAwayPaint = () => {
                 <label htmlFor="sheen">Sheen:</label>
               </span>
               <select
-                className="ml-10 sm:ml-0 w-2/3"
+                className="ml-10 sm:ml-0 w-2/3 rounded-md"
                 name="sheen"
                 id="sheen"
                 onChange={(e) => {
