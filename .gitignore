@@ -26,3 +26,9 @@ dist-ssr
 config/config.ts
 public
 server/credentials.json
+server/build
+
+terraforming/.terraform
+terraforming/.terraform.lock.hcl
+terraforming/.terraform.tfstate
+terraforming/.terraform.tfstate.backup

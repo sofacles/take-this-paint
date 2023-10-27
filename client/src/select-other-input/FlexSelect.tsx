@@ -3,7 +3,15 @@ import React from "react";
 // props.onChange will not be called if the selected option is "other". userWantsToCreateCustomValue is called with true
 // in that case.
 
-const FlexSelect = (props) => {
+export type FlexSelectProps = {
+  id: string;
+  selectedValue: string;
+  stringsToShow: string[];
+  onBlur: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (e: string) => void;
+  userWantsToCreateCustomValue: (val: boolean) => void;
+};
+const FlexSelect = (props: FlexSelectProps) => {
   const ourOptions = props.stringsToShow.map((s) => (
     <option key={s} value={s}>
       {s}

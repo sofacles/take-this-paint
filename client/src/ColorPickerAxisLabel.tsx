@@ -1,6 +1,5 @@
 //maybe get rid of this?
 import "./App.css";
-import React from "react";
 
 export interface ColorPickerAxisLabelProps {
   cssClass?: string;

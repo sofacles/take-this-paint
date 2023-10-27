@@ -79,7 +79,20 @@ const addPaint = async (req, res) => {
     Logger.info(`resized photo upload path: ${newPath}`);
     //I should maybe figure out how to offload this work to another service
     try {
-      await sharp(req.file.path).resize(200).png().toFile(newPath);
+      const { height, width } = await sharp(req.file.path).metadata();
+      // console.log("metadata: ---------------------------");
+      // console.log(`width: ${width}, height: ${height}`);
+
+      const shrinkFactor = Math.round(width / 200);
+
+      await sharp(req.file.path)
+        .resize(
+          Math.round(width / shrinkFactor),
+          Math.round(height / shrinkFactor)
+        )
+        .rotate() //weird.  I found this workaround to iPhone portrait pics being rotated to landscape, magic: works with uploads in landscape orientation too.
+        .png()
+        .toFile(newPath);
     } catch (error) {
       Logger.error("Exception caught resizing", JSON.stringify(error));
     }

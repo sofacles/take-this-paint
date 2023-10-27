@@ -1,7 +1,10 @@
 import React from "react";
-import { displayPartsToString } from "typescript";
 
-const ArrowButton = ({ onClick, direction = "up", text }) => {
+export type ArrowButtonProps = {
+  direction: "up" | "down";
+  text: string;
+};
+const ArrowButton = ({ direction = "up", text }: ArrowButtonProps) => {
   let rotation = 180.1;
   if (direction === "up") {
     rotation = 0.1;

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { Link } from "react-router-dom";
 import PaintBucket from "./BucketIcon";
 import "./App.css";

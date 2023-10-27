@@ -1,4 +1,3 @@
-import React from "react";
 import { PaintTileProps } from "../types";
 
 interface AdminPaintTypeType extends PaintTileProps {

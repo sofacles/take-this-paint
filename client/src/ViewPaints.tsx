@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { PaintType } from "./types";
 import { ImageTile } from "./ImageTile";
-import { PaintTile } from "./PaintTile";
 
 function ViewPaints() {
   const [paints, setPaints] = useState<PaintType[]>([]);
@@ -12,12 +11,6 @@ function ViewPaints() {
         setPaints(data);
       });
   }, []);
-
-  const homeStyle = {
-    display: "flex",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-  };
 
   let theTiles = paints?.map((chip) => {
     return <ImageTile key={chip._id} paintUnit={chip} />;

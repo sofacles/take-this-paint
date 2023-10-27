@@ -1,5 +1,3 @@
-import React from "react";
-
 const PaintBucket = () => {
   let sideLength = "32";
 

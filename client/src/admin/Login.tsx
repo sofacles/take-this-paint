@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useRef, useState, useContext } from "react";
+import { SyntheticEvent, useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../useAuthContext";
 

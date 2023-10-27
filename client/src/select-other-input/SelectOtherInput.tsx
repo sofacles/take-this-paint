@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import FlexSelect from "./FlexSelect";
 
 interface eventArgs {
@@ -39,10 +39,6 @@ const SelectOtherInput: React.FC<props> = ({
     }
   }, [showCustomInput]);
 
-  const spaceRight = {
-    // marginRight: "10px"
-  };
-
   const customTextHelper = () => {
     if (customTextVal === "") {
       //treat this as the user just trying to toggle <select> back to visible
@@ -63,33 +59,36 @@ const SelectOtherInput: React.FC<props> = ({
       <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
         <label htmlFor="email">{label}</label>
       </span>
-      <input
-        className="ml-10 sm:ml-0 sm:w-2/3"
-        name={id}
-        type="text"
-        ref={inputBox}
-        placeholder="enter new value"
-        value={customTextVal}
-        onChange={(e) => {
-          setCustomTextVal(e.target.value);
-        }}
-        onBlur={(e) => {
-          customTextHelper();
-          onBlur(e);
-        }}
-        onKeyDown={(e) => {
-          if (e.keyCode === 13) {
+      <div className="ml-10 mr-4 sm:ml-0 sm:w-2/3 flex flex-row ">
+        <input
+          className="rounded-md"
+          name={id}
+          type="text"
+          ref={inputBox}
+          placeholder="enter new value"
+          value={customTextVal}
+          onChange={(e) => {
+            setCustomTextVal(e.target.value);
+          }}
+          onBlur={(e) => {
             customTextHelper();
-          }
-        }}
-      />
-      <button
-        onClick={(e) => {
-          customTextHelper();
-        }}
-      >
-        {okText}
-      </button>
+            onBlur(e);
+          }}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              customTextHelper();
+            }
+          }}
+        />
+        <button
+          className="border border-emerald-800 block w-32 ml-4 px-4 py-2 rounded-md bg-emerald-300  hover:bg-emerald-100 "
+          onClick={(_e) => {
+            customTextHelper();
+          }}
+        >
+          {okText}
+        </button>
+      </div>
     </>
   ) : (
     <>
@@ -113,7 +112,6 @@ const SelectOtherInput: React.FC<props> = ({
           setShowCustomInput(showInputBox);
           if (showInputBox === true) setCustomTextVal("");
         }}
-        StringsToShow={stringsImShowing}
       />
     </>
   );
