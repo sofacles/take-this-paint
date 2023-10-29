@@ -1,0 +1,116 @@
+import { useState } from "react";
+
+const UseForm = (submitCallback, requiredFields) => {
+  const [fields, setFields] = useState({});
+
+  const emptyErrors = {
+    brand: "",
+    name: "",
+    email: "",
+    confirmEmail: "",
+    emailMatch: "",
+    quantity: "",
+    oneOf: "",
+    zipCode: "",
+  };
+
+  const [errors, setErrors] = useState(emptyErrors);
+
+  const validateRequiredField = (fieldName, value) => {
+    if (!value) {
+      setErrors((errors) => {
+        return { ...errors, [fieldName]: `${fieldName} is required` };
+      });
+    }
+  };
+
+  const validateMinLength = (fieldName, value, minLength) => {
+    if (value.length < minLength) {
+      setErrors({
+        ...errors,
+        ...{
+          [fieldName]: `${fieldName} needs to be at least ${minLength} characters long`,
+        },
+      });
+    }
+  };
+
+  //this fieldName will have to be one of the recognized names
+  const validateValueIsNot = (fieldName, value, defaultValue) => {
+    if (value === defaultValue) {
+      setErrors({ ...errors, [fieldName]: `${fieldName} is required` });
+    }
+  };
+
+  const validateAtLeastOneOf = (fieldNames) => {
+    if (
+      fieldNames.some((fieldName) => {
+        fields[fieldName] && fields[fieldName].trim() !== "";
+      })
+    ) {
+      let theNewErrors = {
+        ...errors,
+        atLeastOne: `Please provide at least one of ${fieldNames.join(" or ")}`,
+      };
+      //Sigh.  This isn't great, the returning of errors _and_ the setting of state.
+      setErrors(theNewErrors);
+      return theNewErrors;
+    }
+    return errors;
+  };
+
+  const validateAll = (values) => {
+    for (let i = 0; i < requiredFields.length; i++) {
+      validateRequiredField(requiredFields[i], values[requiredFields[i]]);
+    }
+  };
+
+  const clearErrorFor = (propName) => {
+    setErrors({
+      ...errors,
+      [propName]: null,
+    });
+  };
+
+  const setField = (inputEvent) => {
+    const propName = inputEvent.target.name;
+    const propVal = inputEvent.target.value;
+    clearErrorFor(propName);
+
+    setFields({ ...fields, [propName]: propVal });
+  };
+
+  const validateEmailMatch = () => {
+    clearErrorFor("emailsNeedToMatch");
+    if (fields.email?.trim() !== fields.confirmEmail?.trim()) {
+      setErrors((errors) => {
+        return {
+          ...errors,
+          ...{ emailsNeedToMatch: "email and confirm email are not the same" },
+        };
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    validateAll(fields);
+    if (!Object.keys(errors).some((err) => errors[err])) {
+      await submitCallback(fields);
+    }
+  };
+
+  return {
+    clearErrorFor,
+    setField,
+    errors,
+    handleSubmit,
+    validateAtLeastOneOf,
+    validateEmailMatch,
+    validateRequiredField,
+    validateMinLength,
+    validateValueIsNot,
+  };
+};
+
+export default UseForm;

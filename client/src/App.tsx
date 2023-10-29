@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ViewPaints from "./ViewPaints";
-import GiveAwayPaint from "./GiveAwayPaint";
+import GiveAwayPaint from "./GiveAwayPaint/GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
 import Layout from "./Layout";

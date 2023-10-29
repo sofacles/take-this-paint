@@ -17,3 +17,13 @@ export interface RGB {
   g: number;
   b: number;
 }
+
+export type Inputs = {
+  name: string;
+  brand: string;
+  quantity: string;
+  email: string;
+  confirmEmail: string;
+  zipCode: string;
+  rgb: string;
+};

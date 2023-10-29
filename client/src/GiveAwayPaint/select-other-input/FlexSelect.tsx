@@ -1,18 +1,19 @@
-import React from "react";
+import React, { FocusEvent } from "react";
+
 //A <select> that renders an option for each string in props.StringsToShow, controlled by props.selectedValue
 // props.onChange will not be called if the selected option is "other". userWantsToCreateCustomValue is called with true
 // in that case.
 
 export type FlexSelectProps = {
-  id: string;
+  id: "brand" | "quantity";
   selectedValue: string;
-  stringsToShow: string[];
-  onBlur: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  stringsToShow: Set<string>;
+  onBlur: (e: FocusEvent<HTMLSelectElement | HTMLInputElement>) => void;
   onChange: (e: string) => void;
   userWantsToCreateCustomValue: (val: boolean) => void;
 };
 const FlexSelect = (props: FlexSelectProps) => {
-  const ourOptions = props.stringsToShow.map((s) => (
+  const ourOptions = [...props.stringsToShow].map((s) => (
     <option key={s} value={s}>
       {s}
     </option>

@@ -32,7 +32,7 @@ const PaintCanFactory = (connectedMongoose) => {
     quantity: { type: String, required: true },
     email: { type: String, required: true },
     emailConfirmed: { type: Boolean, required: false },
-    sheen: { type: String, requied: false },
+    sheen: { type: String, required: false },
   });
 
   const PaintCan = connectedMongoose.model(
