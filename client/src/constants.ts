@@ -23,4 +23,21 @@ const DEFAULT_QUANTITIES = new Set([
   "other",
 ]);
 
-export { DEFAULT_PAINTS, DEFAULT_QUANTITIES, OPTION_DEFAULT };
+const DEFAULT_SHEENS = new Set([
+  "- choose -",
+  "flat",
+  "eggshell",
+  "velvet",
+  "semi-gloss",
+  "high-gloss",
+]);
+
+const DEFAULT_UPLOAD_PHOTO = { preview: "", data: null };
+
+export {
+  DEFAULT_PAINTS,
+  DEFAULT_SHEENS,
+  DEFAULT_QUANTITIES,
+  DEFAULT_UPLOAD_PHOTO,
+  OPTION_DEFAULT,
+};

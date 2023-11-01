@@ -18,12 +18,22 @@ export interface RGB {
   b: number;
 }
 
+export type UploadPhotoType = { preview: string; data: File | null };
+
 export type Inputs = {
-  name: string;
   brand: string;
-  quantity: string;
-  email: string;
   confirmEmail: string;
+  name: string;
+
+  sheen: string;
+  email: string;
+  quantity: string;
+  oneOf: {
+    rgb: string;
+    uploadPhoto: UploadPhotoType;
+  };
+
   zipCode: string;
-  rgb: string;
 };
+
+export type ALLOWED_IDS_FOR_SELECT = "brand" | "quantity" | "sheen";

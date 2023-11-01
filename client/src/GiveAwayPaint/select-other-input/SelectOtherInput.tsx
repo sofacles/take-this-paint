@@ -1,18 +1,19 @@
 import { FocusEvent, useEffect, useState, useRef } from "react";
 import FlexSelect from "./FlexSelect";
 import { OPTION_DEFAULT } from "../../constants";
+import { ALLOWED_IDS_FOR_SELECT } from "../../types";
 
 interface selectOtherInputProps {
   onBlur: (e: FocusEvent<HTMLInputElement | HTMLSelectElement>) => void;
   onChange: (newVal: string) => void;
   initialValues: Set<string>;
   label: string;
-  id?: "brand" | "quantity";
-  name: "brand" | "quantity";
+  id?: ALLOWED_IDS_FOR_SELECT;
+  name: ALLOWED_IDS_FOR_SELECT;
   okText?: string;
 }
 const SelectOtherInput: React.FC<selectOtherInputProps> = ({
-  id = "gloriousControl",
+  id = "",
   initialValues,
   label,
   onChange,
@@ -50,13 +51,15 @@ const SelectOtherInput: React.FC<selectOtherInputProps> = ({
   };
 
   let controlToShow = showCustomInput ? (
-    <>
+    <div className="sm:flex sm:flex-row bg-blue-400n sm:w-full">
       <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
-        <label htmlFor="email">{label}</label>
+        <label className="capitalize" htmlFor="email">
+          {label}
+        </label>
       </span>
-      <div className="ml-10 mr-4 sm:ml-0 sm:w-2/3 flex flex-row ">
+      <div className=" sm:w-2/3 sm:flex sm:flex-row ml-10 sm:ml-0 justify-start">
         <input
-          className="rounded-md bg-purple-300"
+          className="rounded-md"
           name={id}
           type="text"
           ref={inputBox}
@@ -80,7 +83,7 @@ const SelectOtherInput: React.FC<selectOtherInputProps> = ({
           }}
         />
         <button
-          className="border border-emerald-800 block w-32 ml-4 px-4 py-2 rounded-md bg-emerald-300  hover:bg-emerald-100 "
+          className="border border-emerald-800 sm:block sm:flex-row sm:w-1/4 ml-4 px-2 py-2 rounded-md bg-emerald-300  hover:bg-emerald-100"
           onClick={(_e) => {
             customTextHelper();
           }}
@@ -88,13 +91,13 @@ const SelectOtherInput: React.FC<selectOtherInputProps> = ({
           {okText}
         </button>
       </div>
-    </>
+    </div>
   ) : (
     <>
       <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
         <label htmlFor={id}>{label}</label>
       </span>
-      <div className="ml-10 mr-4 sm:ml-0 sm:w-2/3 flex flex-row ">
+      <div className="ml-0 sm:ml-0 w-2/3 rounded-md">
         <FlexSelect
           stringsToShow={stringsImShowing}
           id={name}

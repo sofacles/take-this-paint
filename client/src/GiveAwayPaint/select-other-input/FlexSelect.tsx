@@ -1,11 +1,12 @@
 import React, { FocusEvent } from "react";
+import { ALLOWED_IDS_FOR_SELECT } from "../../types";
 
 //A <select> that renders an option for each string in props.StringsToShow, controlled by props.selectedValue
 // props.onChange will not be called if the selected option is "other". userWantsToCreateCustomValue is called with true
 // in that case.
 
 export type FlexSelectProps = {
-  id: "brand" | "quantity";
+  id: ALLOWED_IDS_FOR_SELECT;
   selectedValue: string;
   stringsToShow: Set<string>;
   onBlur: (e: FocusEvent<HTMLSelectElement | HTMLInputElement>) => void;
@@ -21,7 +22,7 @@ const FlexSelect = (props: FlexSelectProps) => {
 
   return (
     <select
-      className="flex w-2/3 ml-10 sm:ml-0 rounded-md"
+      className="flex w-full ml-10 sm:ml-0 rounded-md"
       value={props.selectedValue}
       id={props.id}
       name={props.id}

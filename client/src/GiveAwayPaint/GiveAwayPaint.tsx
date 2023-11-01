@@ -1,150 +1,149 @@
 import { useContext, useState } from "react";
-import { Controller, useForm, SubmitHandler } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import SelectOtherInput from "./select-other-input/SelectOtherInput";
+import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
+import ValidatedSelectOtherInput from "./select-other-input/ValidatedSelectOtherInput";
+import LabeledInput from "./LabeledInput";
 import {
   DEFAULT_PAINTS,
   DEFAULT_QUANTITIES,
-  OPTION_DEFAULT,
+  DEFAULT_SHEENS,
 } from "../constants";
 import { Inputs } from "../types";
 
 import { v4 as uuidv4 } from "uuid";
 import querystring from "querystring";
 import { useNavigate } from "react-router-dom";
+import ValidatedStep1 from "./ValidatedStep1";
 
 function GiveAwayPaint() {
   const navigate = useNavigate();
-  const [image, setImage] = useState({ preview: "", data: "" });
-  const [showColorPicker, setShowColorPicker] = useState(false);
-  // whether they've selected a color in the color picker
-  const [colorSelected, setColorSelected] = useState(false);
-
   const [step1Completed, setStep1Completed] = useState(false);
 
-  const {
-    control,
-    getValues,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>({ mode: "all" });
+  const methods = useForm<Inputs>({ mode: "all" });
+  const { getValues, handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const {
+      brand,
+      email,
+      confirmEmail,
+      name,
+      quantity,
+      oneOf: { rgb, uploadPhoto },
+      sheen,
+    } = data;
+    let formData = new FormData();
+    formData.append("imageName", uuidv4());
+    formData.append("uploadPhoto", uploadPhoto.data!); //fix
+
+    let qs = querystring.encode({
+      brand,
+      email,
+      confirmEmail,
+      name,
+      quantity,
+      rgb,
+      sheen,
+    });
+    const response = await fetch(`/api/paints/?${qs}`, {
+      method: "POST",
+      body: formData,
+    });
+    if (response && response.status === 200) {
+      navigate("/thank-you");
+    }
+  };
+
+  let selectedColorText = {
+    color: "#" + getValues("oneOf.rgb"),
+    display: getValues("oneOf.rgb") ? "flex" : "none",
   };
 
   return (
     <div className="mt-8 bg-green-50 sm:mx-auto sm:w-full sm:max-w-md md:max-w-lg lg:max-w-3xl">
       <div className="py-8 px-6 shadow rounded-lg sm:px-10 ">
-        <form
-          className="space-y-6 mb-0"
-          name="give-away-paint"
-          encType="multipart/form-data"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <h1 className="text-lg font-semibold text-emerald-700">
-            Give somebody your old paint.
-          </h1>
+        <FormProvider {...methods}>
+          <form
+            className="space-y-6 mb-0"
+            name="give-away-paint"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <h1 className="text-lg font-semibold text-emerald-700">
+              Give somebody your old paint.
+            </h1>
 
-          <div className="sm:flex sm:flex-wrap">
-            <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
-              <label htmlFor="name">Color name:</label>
-            </span>
-            <input
-              className="ml-10 sm:ml-0 w-2/3 rounded-md"
-              {...register("name", { required: "Please add a name" })}
-            />
-          </div>
+            <section
+              className={`space-y-6 mb-0 ${step1Completed ? "hidden" : ""}`}
+            >
+              <ValidatedStep1 onDone={() => setStep1Completed(true)} />
+            </section>
 
-          <ErrorMessage
-            errors={errors}
-            name="name"
-            render={({ message }) => (
-              <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right text-sm">
-                {message}
-              </p>
-            )}
-          />
-
-          <div className="sm:flex sm:flex-wrap">
-            <Controller
-              control={control}
-              name="brand"
-              defaultValue={OPTION_DEFAULT}
-              render={({ field: { onChange, onBlur } }) => (
-                <SelectOtherInput
-                  id="brand"
-                  name="brand"
-                  initialValues={DEFAULT_PAINTS}
-                  label="Brand:"
-                  onChange={onChange}
-                  onBlur={onBlur}
+            <section
+              className={`space-y-6 mb-0 ${step1Completed ? "" : "hidden"}`}
+            >
+              <div className="w-full pr-16 text-right">
+                <a
+                  href="#"
+                  className="p-1 text-sm t underline text-emerald-500 hover:no-underline hover:bg-emerald-100"
+                  onClick={(e) => {
+                    setStep1Completed(false);
+                  }}
+                >
+                  edit step 1
+                </a>
+              </div>
+              <div
+                className={`flex flex-row justify-center ${
+                  getValues("oneOf.uploadPhoto.data")?.name ? "" : "hidden"
+                }`}
+              >
+                <img
+                  src={getValues("oneOf.uploadPhoto.preview")}
+                  width="100px"
+                  height="100px"
                 />
-              )}
-              rules={{
-                validate: (value) => {
-                  if (value === OPTION_DEFAULT || value == "other") {
-                    return "Please enter a brand";
-                  }
-                },
-              }}
-            />
-          </div>
+              </div>
 
-          <ErrorMessage
-            errors={errors}
-            name="brand"
-            render={({ message }) => (
-              <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right text-sm">
-                {message}
-              </p>
-            )}
-          />
-          <div className="sm:flex sm:flex-wrap">
-            <Controller
-              control={control}
-              name="quantity"
-              defaultValue={OPTION_DEFAULT}
-              render={({ field: { onChange, onBlur } }) => (
-                <SelectOtherInput
-                  id="quantity"
-                  name="quantity"
-                  initialValues={DEFAULT_QUANTITIES}
-                  label="quantity:"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                />
-              )}
-              rules={{
-                validate: (value) => {
-                  if (value === OPTION_DEFAULT || value == "other") {
-                    return "Please enter a quantity";
-                  }
-                },
-              }}
-            />
-          </div>
+              <span
+                style={selectedColorText}
+                className="text-2xl flex flex-row justify-center"
+              >
+                #{getValues("oneOf.rgb")}
+              </span>
+            </section>
 
-          <ErrorMessage
-            errors={errors}
-            name="quantity"
-            render={({ message }) => (
-              <p className="basis-full my-0 pt-0 text-red-400 ml-10 sm:text-right text-sm">
-                {message}
-              </p>
-            )}
-          />
-
-          <div className="sm:flex sm:flex-wrap sm:justify-end">
-            <input
-              className="bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md"
-              type="submit"
-              value="save"
-              id="save"
+            <LabeledInput id="name" label="Color name" />
+            <ValidatedSelectOtherInput
+              id="brand"
+              initialValues={DEFAULT_PAINTS}
             />
-          </div>
-        </form>
+            <ValidatedSelectOtherInput
+              id="quantity"
+              initialValues={DEFAULT_QUANTITIES}
+            />
+
+            <LabeledInput id="email" inputType="email" label="Email" />
+            <LabeledInput
+              id="confirmEmail"
+              inputType="email"
+              label="Confirm email"
+            />
+
+            <ValidatedSelectOtherInput
+              id="sheen"
+              initialValues={DEFAULT_SHEENS}
+            />
+
+            <div className="sm:flex sm:flex-wrap sm:justify-end">
+              <input
+                className="bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md"
+                type="submit"
+                value="save"
+                id="save"
+              />
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </div>
   );
