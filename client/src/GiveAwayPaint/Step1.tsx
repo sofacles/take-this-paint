@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { UploadPhotoType } from "../types";
 import ColorPicker from "../ColorPicker";
@@ -48,7 +48,7 @@ const Step1 = (props: ValidatedStep1Props) => {
                 rgb,
               });
             }}
-            onBlur={(e) => {
+            onBlur={() => {
               setWasFileUploadBlurred(true);
               if (wasColorPickerBlurred) {
                 props.onBlur();

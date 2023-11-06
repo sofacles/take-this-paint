@@ -1,5 +1,3 @@
-import React from "react";
-
 export type ArrowButtonProps = {
   direction: "up" | "down";
   text: string;

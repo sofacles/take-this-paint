@@ -1,12 +1,12 @@
-import React from "react";
 import { ErrorMessage } from "@hookform/error-message";
 import { Controller, useFormContext } from "react-hook-form";
 import SelectOtherInput from "./SelectOtherInput";
 
 import { OPTION_DEFAULT } from "../../constants";
+import { ALLOWED_IDS_FOR_SELECT } from "../../types";
 
 export type ValidatedSelectOtherInputProps = {
-  id: "brand" | "quantity";
+  id: ALLOWED_IDS_FOR_SELECT;
   initialValues: Set<string>;
 };
 const ValidatedSelectOtherInput = ({

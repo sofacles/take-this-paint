@@ -1,4 +1,4 @@
-import React, { FocusEvent } from "react";
+import { FocusEvent } from "react";
 import { ALLOWED_IDS_FOR_SELECT } from "../../types";
 
 //A <select> that renders an option for each string in props.StringsToShow, controlled by props.selectedValue

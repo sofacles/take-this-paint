@@ -1,4 +1,3 @@
-import React, { useContext, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import Step1 from "./Step1";
@@ -13,9 +12,8 @@ const ValidatedStep1 = ({ onDone }: ValidatedStep1Props) => {
 
   const {
     control,
-    getValues,
     setValue,
-    formState: { errors, touchedFields },
+    formState: { errors },
   } = foo;
 
   return (

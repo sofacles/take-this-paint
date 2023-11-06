@@ -2,7 +2,6 @@ import { FocusEvent, useContext, useState } from "react";
 
 import { ColorPixel } from "./ColorPixel";
 import ComplementaryColor from "./OppositeColor";
-import { ColorPickerAxisLabel } from "./ColorPickerAxisLabel";
 import ThirdColorControl from "./ThirdColor/ThirdColorControl";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
 

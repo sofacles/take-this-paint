@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./App.css";
 import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
 import ComplementaryColor from "./OppositeColor";

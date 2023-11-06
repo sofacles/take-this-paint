@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import ValidatedSelectOtherInput from "./select-other-input/ValidatedSelectOtherInput";
 import LabeledInput from "./LabeledInput";
@@ -85,7 +85,7 @@ function GiveAwayPaint() {
                 <a
                   href="#"
                   className="p-1 text-sm t underline text-emerald-500 hover:no-underline hover:bg-emerald-100"
-                  onClick={(e) => {
+                  onClick={() => {
                     setStep1Completed(false);
                   }}
                 >

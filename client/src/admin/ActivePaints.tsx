@@ -7,12 +7,14 @@ const PaintChipAdmin = () => {
 
   const [paintChips, setPaintChips] = useState([
     {
-      rgb: "",
+      _id: "1",
       brand: "",
+      email: "",
+      imageName: "",
       name: "",
       quantity: "",
-      email: "",
-      _id: "1",
+      rgb: "",
+      sheen: "",
     },
   ]);
 
