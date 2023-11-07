@@ -32,3 +32,5 @@ terraforming/.terraform
 terraforming/.terraform.lock.hcl
 terraforming/.terraform.tfstate
 terraforming/.terraform.tfstate.backup
+
+shellscripts
