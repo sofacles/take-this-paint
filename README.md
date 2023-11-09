@@ -6,8 +6,40 @@ The front end is in react, the back end is an Express app written in ts-node. Th
 
 The idea is that somebody will be able to send you a mail through Nodemailer with a randomized to and from address, like craigslist does, so the two of you can meet and you can get rid of your paint.
 
-## Update: Nov 8, 2023.
+## Update: Nov 9, 2023.
 
-I've got a skeleton version of the app [deployed to an EC2 instance](ec2-35-85-38-117.us-west-2.compute.amazonaws.com), but I'm investigating some issues with uploading photos. Like they say, "it works on my machine". I suspect it's something that Vite was handling for me at dev time through its `publicDir` property, but I also might have nginx configured wrong. I wanted to get something deployed so I could have a real URL to associate with an SSL cert. Once the site is on https, I hope to get the mail-relay stuff working.
+I've got a skeleton version of the app [deployed to an EC2 instance](http://ec2-35-85-38-117.us-west-2.compute.amazonaws.com), but I'm investigating some issues with uploading photos. Like they say, "it works on my machine". I suspect it's something that Vite was handling for me at dev time through its `publicDir` property, but I also might have nginx configured wrong. I wanted to get something deployed so I could have a real URL to associate with an SSL cert. Once the site is on https, I hope to get the mail-relay stuff working.
 
 Last week, moved from my hand-written css to tailwind.
+
+## Screenshots
+
+### View paints
+
+![View paints](./Server/md_images/ViewPaints.png)
+
+### Posting a paint, using the color picker
+
+![Using the color picker while POSTing a paint](./Server/md_images/ColorPicker.png)
+
+### Same thing, but at the mobile breakpoint
+
+![Using the color picker while POSTing a paint on a mobile device](./Server/md_images/ColorPickerMobile.png)
+
+![A custom combobox](./Server/md_images/CustomValue.png)
+
+![error handling on the client with react-hook-form](./Server/md_images/usingUseForm.png)
+
+## Where are the unit tests?
+
+Unit tests are coming. My (shameful) lack of unit tests makes me have to spend way too much time manually testing every time I change something.
+
+## Roadmap
+
+- Get a minimal reproducible example of my photo upload issue together and see if github-copilot-chat can tell me what's wrong or maybe post a question on StackOverflow.
+- Fix the casing on the form labels
+- Get a domain and an SSL cert
+- Get gmail API working with said cert
+- Unit tests
+- Write an API that lets me send paint donors an email with which they can eventually delete their posting
+- Some end-to-end Cypress tests
