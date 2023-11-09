@@ -16,19 +16,19 @@ Last week, moved from my hand-written css to tailwind.
 
 ### View paints
 
-![View paints](./Server/md_images/ViewPaints.png)
+![View paints](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/ViewPaints.png)
 
 ### Posting a paint, using the color picker
 
-![Using the color picker while POSTing a paint](./Server/md_images/ColorPicker.png)
+![Using the color picker while POSTing a paint](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/ColorPicker.png)
 
 ### Same thing, but at the mobile breakpoint
 
-![Using the color picker while POSTing a paint on a mobile device](./Server/md_images/ColorPickerMobile.png)
+![Using the color picker while POSTing a paint on a mobile device](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/ColorPickerMobile.png)
 
-![A custom combobox](./Server/md_images/CustomValue.png)
+![A custom combobox](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/CustomValue.png)
 
-![error handling on the client with react-hook-form](./Server/md_images/usingUseForm.png)
+![error handling on the client with react-hook-form](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/usingUseForm.png)
 
 ## Where are the unit tests?
 
