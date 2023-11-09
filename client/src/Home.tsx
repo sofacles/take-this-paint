@@ -24,21 +24,9 @@ const Home = () => {
 
       <p>
         You're welcome to test out the site: browse the (currently fake) data,
-        post a new paint and click on an existing paint to simulate sending an
-        email to the donor of that paint. I recommend using fake email addresses
-        until I set up a real SSL certificate and integrate with an email
-        service.
+        post a new paint but clicking on an existing paint to send an email to
+        the donor of that paint is currently broken.
       </p>
-
-      <div className="home-button-holder">
-        <Link to="/give-away" className="jumbo-button">
-          <span> I want to give away paint </span>
-        </Link>
-
-        <Link to="/view-paints" className="jumbo-button">
-          <span> I'm looking for paint</span>
-        </Link>
-      </div>
     </div>
   );
 };
