@@ -44,12 +44,12 @@ function GiveAwayPaint() {
       rgb,
       sheen,
     });
-    const response = await fetch(`/api/paints/?${qs}`, {
+    const response = await fetch(`/server/paints/?${qs}`, {
       method: "POST",
       body: formData,
     });
-    if (response && response.status === 200) {
-      navigate("/thank-you");
+    navigate("/thank-you");
+    if (response && response.status === 201) {
     }
   };
 

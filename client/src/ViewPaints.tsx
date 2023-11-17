@@ -5,7 +5,7 @@ import { ImageTile } from "./ImageTile";
 function ViewPaints() {
   const [paints, setPaints] = useState<PaintType[]>([]);
   useEffect(() => {
-    fetch("/api/paints")
+    fetch("/server/paints")
       .then((resp) => resp.json())
       .then((data) => {
         setPaints(data);

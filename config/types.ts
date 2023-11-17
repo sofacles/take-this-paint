@@ -3,6 +3,10 @@ const config = {
     email: "user1@aol.com",
     password: "password",
   },
+  awsBucketName: "paints",
+  bucketRegion: "us-east-1",
+  bucketAccessKey: "12345678901234567890",
+  bucketSecretAccessKey: "1234567890123456789012345678901234567890",
   baseUrl: "http://localhost:3000/",
   gmailAPI: {
     clientId: "123456789-rtwertyuyuioertyuioertyui.apps.braniff.com",
@@ -17,7 +21,7 @@ const config = {
   logFolder: "logs",
   encryptionKey: "abc123",
   oauthLoginSecret: "secret",
-  uploadsFolder: "public/uploads",
+  s3BaseUrl: "https://bucket.region.com",
 };
 
 export type configType = typeof config;

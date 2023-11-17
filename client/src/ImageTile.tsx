@@ -15,11 +15,7 @@ export const ImageTile = ({ paintUnit }: PaintTileProps) => {
     >
       <div className={`p-4 h-128 min-h-full`} style={rgbStyle}>
         {paintUnit.imageName ? (
-          <img
-            alt="paint color"
-            width={200}
-            src={`uploads/resized/${paintUnit.imageName}`}
-          />
+          <img alt="paint color" width={200} src={paintUnit.imageName} />
         ) : (
           <img
             alt="paint color"

@@ -33,11 +33,7 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
 
       <td style={imgStyle}>
         {paintUnit.imageName ? (
-          <img
-            alt="paint color"
-            style={imgStyle}
-            src={`uploads/resized/${paintUnit.imageName}`}
-          />
+          <img alt="paint color" style={imgStyle} src={paintUnit.imageName} />
         ) : (
           <div style={rgbStyle} />
         )}

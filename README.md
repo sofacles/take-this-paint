@@ -12,6 +12,12 @@ I've got a skeleton version of the app [deployed to an EC2 instance](http://ec2-
 
 Last week, moved from my hand-written css to tailwind.
 
+## Update Nov 17, 2023
+
+OK, most everything is tailwindified and I decided that I was thinkig about vite wrong. It's a static site builder. I think adding pictures after build time and them having them be instantly visible just isn't what it was designed for. Now I'm storing images in an S3 bucket where the objects are all readable.
+
+This is configured so it can run on nginx in prod. If you run this locally, you'll need the fetch calls to start with "server" instead of "api". Same for the `app.use()`s and `app.get()`s in `server/index.ts`;
+
 ## Screenshots
 
 ### View paints
@@ -36,7 +42,7 @@ Unit tests are coming. My (shameful) lack of unit tests makes me have to spend w
 
 ## Roadmap
 
-- Get a minimal reproducible example of my photo upload issue together and see if github-copilot-chat can tell me what's wrong or maybe post a question on StackOverflow.
+- Start using dotenv, get rid of my config file
 - Fix the casing on the form labels
 - Get a domain and an SSL cert
 - Get gmail API working with said cert

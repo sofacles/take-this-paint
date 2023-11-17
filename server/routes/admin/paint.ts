@@ -1,6 +1,7 @@
 import express from "express";
 import fs from "fs/promises";
 import { PaintCanModel } from "../../data/models";
+import { deleteFile, getS3FileUrl } from "../../data/s3";
 import verifyToken from "../../checkLoginMiddleware";
 
 const router = express.Router();
@@ -8,7 +9,10 @@ const router = express.Router();
 const getPaints = async (_, res, next) => {
   try {
     const paints = await PaintCanModel.find({});
-
+    const adjustedPaints = Array<typeof PaintCanModel>();
+    for (let paint of paints) {
+      paint.imageName = getS3FileUrl(paint.imageName);
+    }
     res.status(200).json(paints);
     next();
   } catch (error) {
@@ -19,11 +23,8 @@ const getPaints = async (_, res, next) => {
 const deletePaint = async (req, res) => {
   let doomedPaint = await PaintCanModel.findOne({ _id: req.query.id });
   if (doomedPaint.imageName) {
-    const imagePath = `${process.cwd()}/public/uploads/resized/${
-      doomedPaint.imageName
-    }`;
     try {
-      await fs.unlink(imagePath);
+      await deleteFile(doomedPaint.imageName);
     } catch (error) {
       console.log(error);
       return res.send({

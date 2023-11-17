@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const Home = () => {
   //TODO: fix
   document.cookie = "HasSeenHomeScreen=true";

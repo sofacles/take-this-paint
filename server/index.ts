@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
+import Logger from "./Logger";
 import session from "express-session";
 import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
@@ -31,7 +32,7 @@ app.use(
     resave: false,
   })
 );
-const port = process.env.PORT;
+const port = process.env.PORT || 8888;
 
 process.env.SECRET = _config.oauthLoginSecret;
 
@@ -43,10 +44,10 @@ Connect()
     app.get("/", (_: Request, res: Response) => {
       res.send("Express + TypeScript Server");
     });
-    app.use("/api/login", loginRouter);
-    app.get("/api/health", getHealth);
-    app.use("/api/paints", paintRouter);
-    app.use("/api/admin/paints", adminPaintRouter);
+    app.use("/server/login", loginRouter);
+    app.get("/server/health", getHealth);
+    app.use("/server/paints", paintRouter);
+    app.use("/server/admin/paints", adminPaintRouter);
 
     app.use(function (err, req, res, next) {
       // set locals, only providing error in development
@@ -65,5 +66,6 @@ Connect()
     });
   })
   .catch((err) => {
+    Logger.error("Error connecting to mongo", err);
     console.log(err);
   });
