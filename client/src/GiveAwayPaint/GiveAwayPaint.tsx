@@ -65,6 +65,7 @@ function GiveAwayPaint() {
           <form
             className="space-y-6 mb-0"
             name="give-away-paint"
+            data-testid="give-away-paint-form"
             encType="multipart/form-data"
             onSubmit={handleSubmit(onSubmit)}
           >

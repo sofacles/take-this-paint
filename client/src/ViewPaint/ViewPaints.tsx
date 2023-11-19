@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PaintType } from "./types";
+import { PaintType } from "../types";
 import { ImageTile } from "./ImageTile";
 
 function ViewPaints() {

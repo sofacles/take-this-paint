@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PaintTileProps } from "./types";
+import { PaintTileProps } from "../types";
 
 export const ImageTile = ({ paintUnit }: PaintTileProps) => {
   const { name, rgb } = paintUnit;

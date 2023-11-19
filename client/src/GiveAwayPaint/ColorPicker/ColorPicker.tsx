@@ -2,10 +2,10 @@ import { FocusEvent, useContext, useState } from "react";
 
 import { ColorPixel } from "./ColorPixel";
 import ComplementaryColor from "./OppositeColor";
-import ThirdColorControl from "./ThirdColor/ThirdColorControl";
-import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
+import ThirdColorControl from "../ThirdColor/ThirdColorControl";
+import { ThirdColorContext } from "../ThirdColor/ThirdColorContext";
 
-import "./App.css";
+import "../../App.css";
 
 export type ColorPickerProps = {
   onColorChosen: (color: string) => void;

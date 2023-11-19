@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import "./App.css";
-import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
+import "../../App.css";
+import { ThirdColorContext } from "../ThirdColor/ThirdColorContext";
 import ComplementaryColor from "./OppositeColor";
-import { RGB } from "./types";
+import { RGB } from "../../types";
 
 const HexValues = [
   "0",

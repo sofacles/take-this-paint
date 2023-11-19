@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { UploadPhotoType } from "../types";
-import ColorPicker from "../ColorPicker";
-import { ThirdColorContext } from "../ThirdColor/ThirdColorContext";
+import ColorPicker from "./ColorPicker/ColorPicker";
+import { ThirdColorContext } from "./ThirdColor/ThirdColorContext";
 
 export interface ValidatedStep1Props {
   onDone: () => void;

@@ -1,6 +1,8 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useFormContext } from "react-hook-form";
 
+import { aOrAnd } from "../utils";
+
 export type LabeledInputProps = {
   label: string;
   id: string;
@@ -19,7 +21,7 @@ const LabeledInput = ({ id, label, inputType = "text" }: LabeledInputProps) => {
         </span>
         <input
           className="ml-10 sm:ml-0 w-2/3 rounded-md"
-          {...register(id, { required: `Please add a ${id}` })}
+          {...register(id, { required: `Please add ${aOrAnd(id)} ${id}` })}
           type={inputType}
         />
       </div>
