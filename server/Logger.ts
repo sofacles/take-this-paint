@@ -1,8 +1,7 @@
-import config from "../config/config";
-import { configType } from "../config/types";
+import dotEnv from "dotenv";
 import winston from "winston";
 
-const { dev: _config } = config;
+dotEnv.config();
 
 const Logger = winston.createLogger({
   level: "info",
@@ -15,11 +14,11 @@ const Logger = winston.createLogger({
     // - Write all logs error (and below) to `error.log`.
     //
     new winston.transports.File({
-      filename: `${_config.logFolder}/error.log`,
+      filename: `${process.env.LOG_FOLDER}/error.log`,
       level: "error",
     }),
     new winston.transports.File({
-      filename: `${_config.logFolder}/combined.log`,
+      filename: `${process.env.LOG_FOLDER}/combined.log`,
     }),
   ],
 });

@@ -1,5 +1,5 @@
 import express from "express";
-
+import dotEnv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -11,6 +11,7 @@ import {
 } from "../constants";
 
 const router = express.Router();
+dotEnv.config();
 
 const Login = async (req, res) => {
   try {
@@ -33,18 +34,26 @@ const Login = async (req, res) => {
       const tokenPayload = {
         email: userModel.email,
       };
-      const accessToken = jwt.sign(tokenPayload, process.env.SECRET, {
-        expiresIn: ACCESS_TOKEN_LIFESPAN,
-      });
+      const accessToken = jwt.sign(
+        tokenPayload,
+        process.env.SITE_OAUTH_LOGIN_SECRET,
+        {
+          expiresIn: ACCESS_TOKEN_LIFESPAN,
+        }
+      );
 
       const loginResponse = {
         status: "success",
         message: "User Logged In!",
       };
 
-      const refreshToken = jwt.sign(tokenPayload, process.env.SECRET, {
-        expiresIn: REFRESH_TOKEN_LIFESPAN,
-      });
+      const refreshToken = jwt.sign(
+        tokenPayload,
+        process.env.SITE_OAUTH_LOGIN_SECRET,
+        {
+          expiresIn: REFRESH_TOKEN_LIFESPAN,
+        }
+      );
 
       if (req.session) {
         req.session.accessToken = accessToken;

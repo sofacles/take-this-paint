@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import { configType } from "../../config/types";
-import config from "../../config/config";
+import dotEnv from "dotenv";
 
-const _config: configType = config.dev;
+dotEnv.config();
 
 function handleNonInitialConnectionError(error) {
   console.log("Error with connection to MongoDB.. not initial connection:");
@@ -16,7 +15,7 @@ mongoose.connection.on("error", handleNonInitialConnectionError);
 // CONNECTION EVENTS
 // When successfully connected
 const onConnectedHandler = function () {
-  console.log("Mongoose default connection open to " + _config.dbURI);
+  console.log("Mongoose default connection open to " + process.env.MONGO_URI);
   return mongoose;
 };
 
@@ -33,10 +32,10 @@ mongoose.connection.on("disconnected", function () {
 });
 
 console.log("about to connect to mongodb");
-mongoose.connect(_config.dbURI, {
-  authSource: _config.authSource,
-  user: _config.user,
-  pass: _config.pass,
+mongoose.connect(process.env.MONGO_URI, {
+  authSource: process.env.MONGO_AUTH_SOURCE,
+  user: process.env.MONGO_USER,
+  pass: process.env.MONGO_PASSWORD,
 });
 
 const onConnected = (cb) => {

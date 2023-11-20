@@ -1,14 +1,15 @@
 import jwt from "jsonwebtoken";
 import { UserModel } from "./data/models";
+import dotEnv from "dotenv";
 
-var process = require("process");
+dotEnv.config();
 
 const verifyToken = async (req, res, next) => {
   const accessToken = req.session?.accessToken;
   if (accessToken) {
     jwt.verify(
       accessToken,
-      process.env.SECRET,
+      process.env.SITE_OAUTH_LOGIN_SECRET,
       async function (tokenVerifyError, decode) {
         if (tokenVerifyError) {
           req.user = undefined;

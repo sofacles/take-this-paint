@@ -28,6 +28,9 @@ const PaintChipAdmin = () => {
       })
       .then((t) => {
         setPaintChips(t);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 

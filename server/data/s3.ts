@@ -4,22 +4,18 @@ import {
   DeleteObjectCommand,
   GetObjectCommand,
 } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import sharp from "sharp";
+import dotenv from "dotenv";
 
-import config from "../../config/config";
-import { configType } from "../../config/types";
 import Logger from "../Logger";
 
-const _config: configType = config.dev;
+dotenv.config();
 
-const {
-  awsBucketName,
-  bucketRegion,
-  bucketAccessKey,
-  bucketSecretAccessKey,
-  s3BaseUrl,
-} = _config;
+const awsBucketName = process.env.AWS_BUCKET_NAME;
+const bucketRegion = process.env.AWS_BUCKET_REGION;
+const bucketAccessKey = process.env.AWS_ACCESS_KEY;
+const bucketSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const s3BaseUrl = process.env.S3_BASE_URL;
 
 const s3Client = new S3Client({
   region: bucketRegion,
@@ -73,4 +69,4 @@ const deleteFile = (imageKey) => {
   return s3Client.send(new DeleteObjectCommand(deleteParams));
 };
 
-export { deleteFile, getS3FileUrl, putS3File, s3BaseUrl };
+export { deleteFile, getS3FileUrl, putS3File };

@@ -1,13 +1,8 @@
-import bcrypt from "bcryptjs";
 import promptSync from "prompt-sync";
-import config from "../../config/config";
-import { configType } from "../../config/types";
+
 import { PersonWithEmailModel, PaintCanModel, HydrateModels } from "./models";
 import Connect from "./mongooseConnection";
 
-//const prompt = require("prompt-sync")({ sigint: true });
-
-const _config: configType = config.dev;
 const DeletePersonWithEmailModelsAndAllPaints = async () => {
   const prompt = promptSync();
   console.log(

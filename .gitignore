@@ -34,3 +34,4 @@ terraforming/.terraform.tfstate
 terraforming/.terraform.tfstate.backup
 
 shellscripts
+.env

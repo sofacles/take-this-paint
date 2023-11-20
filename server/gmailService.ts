@@ -1,16 +1,16 @@
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
+import dotEnv from "dotenv";
 
-import config from "../config/config";
-import { configType } from "../config/types";
+dotEnv.config();
 const OAuth2 = google.auth.OAuth2;
 
-const _config: configType = config.dev;
-
 const { Logger } = require("./logger");
-const {
-  gmailAPI: { clientId, clientSecret, refreshToken, user },
-} = config.dev;
+
+const clientId = process.env.GMAIL_API_CLIENT_ID;
+const clientSecret = process.env.GMAIL_API_CLIENT_SECRET;
+const refreshToken = process.env.GMAIL_API_REFRESH_TOKEN;
+const user = process.env.GMAIL_API_USER;
 
 const oauth2Client = new OAuth2(
   clientId,
@@ -19,7 +19,7 @@ const oauth2Client = new OAuth2(
 );
 
 oauth2Client.setCredentials({
-  refresh_token: _config.gmailAPI.refreshToken,
+  refresh_token: refreshToken,
 });
 
 const nodeMailerSmtpConfig = {
@@ -45,7 +45,7 @@ function sendGMailToConfirmDonorsAddress(to, slug) {
     to,
     subject: "Thanks for posting your paint",
     generateTextFromHTML: true,
-    html: `<div>Please follow this link to verify your email. <a href="${_config.baseUrl}confirm_email?mn=${slug}" >verify</a></div>`,
+    html: `<div>Please follow this link to verify your email. <a href="${process.env.BASE_URL}confirm_email?mn=${slug}" >verify</a></div>`,
   };
 
   try {

@@ -44,7 +44,7 @@ function GiveAwayPaint() {
       rgb,
       sheen,
     });
-    const response = await fetch(`/server/paints/?${qs}`, {
+    const response = await fetch(`/api/paints/?${qs}`, {
       method: "POST",
       body: formData,
     });

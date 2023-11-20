@@ -1,18 +1,15 @@
 import crypto from "crypto";
-import config from "../config/config";
-import { configType } from "../config/types";
+import dotEnv from "dotenv";
 
-const dev: configType = config.dev;
-
-const ENCRYPTION_KEY = dev.encryptionKey;
 const IV_LENGTH = 16; // For AES, this is always 16
+dotEnv.config();
 
 const encrypt = (text) => {
   let iv = crypto.randomBytes(IV_LENGTH);
   //console.log(`IV: ${iv}`);
   let cipher = crypto.createCipheriv(
     "aes-256-cbc",
-    Buffer.from(ENCRYPTION_KEY),
+    Buffer.from(process.env.CRYPTO_ENCRYPTION_KEY),
     iv
   );
   let encrypted = cipher.update(text);
@@ -28,7 +25,7 @@ const decrypt = (text) => {
   let encryptedText = Buffer.from(textParts.join(":"), "hex");
   let decipher = crypto.createDecipheriv(
     "aes-256-cbc",
-    Buffer.from(ENCRYPTION_KEY),
+    Buffer.from(process.env.CRYPTO_ENCRYPTION_KEY),
     iv
   );
   let decrypted = decipher.update(encryptedText);

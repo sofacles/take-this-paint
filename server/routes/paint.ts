@@ -7,9 +7,8 @@ import Logger from "../Logger";
 import { encrypt, decrypt } from "../cryptoService";
 
 import { PaintCanModel, PersonWithEmailModel } from "../data/models";
-import config from "../../config/config";
-import { configType } from "../../config/types";
-import { sendGMailToConfirmDonorsAddress } from "../gmailService";
+
+//import { sendGMailToConfirmDonorsAddress } from "../gmailService";
 
 const router = express.Router();
 

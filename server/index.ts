@@ -11,8 +11,7 @@ import Connect from "./data/mongooseConnection";
 import { HydrateModels } from "./data/models";
 import loginRouter from "./routes/login";
 import path from "path";
-import config from "../config/config";
-import { configType } from "../config/types";
+
 import {
   ACCESS_TOKEN_LIFESPAN,
   AUTH_COOKIE_LIFESPAN,
@@ -20,21 +19,18 @@ import {
 } from "./constants";
 
 dotenv.config();
-const _config: configType = config.dev;
 
 const app: Express = express();
 app.use(bodyParser.json());
 app.use(
   session({
-    secret: _config.oauthLoginSecret,
+    secret: process.env.SITE_OAUTH_LOGIN_SECRET,
     saveUninitialized: true,
     cookie: { maxAge: AUTH_COOKIE_LIFESPAN },
     resave: false,
   })
 );
 const port = process.env.PORT || 8888;
-
-process.env.SECRET = _config.oauthLoginSecret;
 
 Connect()
   .then((mg) => {
@@ -44,10 +40,10 @@ Connect()
     app.get("/", (_: Request, res: Response) => {
       res.send("Express + TypeScript Server");
     });
-    app.use("/server/login", loginRouter);
-    app.get("/server/health", getHealth);
-    app.use("/server/paints", paintRouter);
-    app.use("/server/admin/paints", adminPaintRouter);
+    app.use("/api/login", loginRouter);
+    app.get("/api/health", getHealth);
+    app.use("/api/paints", paintRouter);
+    app.use("/api/admin/paints", adminPaintRouter);
 
     app.use(function (err, req, res, next) {
       // set locals, only providing error in development

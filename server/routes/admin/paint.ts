@@ -11,7 +11,10 @@ const getPaints = async (_, res, next) => {
     const paints = await PaintCanModel.find({});
     const adjustedPaints = Array<typeof PaintCanModel>();
     for (let paint of paints) {
-      paint.imageName = getS3FileUrl(paint.imageName);
+      if (paint.imageName) {
+        //need to prepend the url to the image name
+        paint.imageName = getS3FileUrl(paint.imageName);
+      }
     }
     res.status(200).json(paints);
     next();
