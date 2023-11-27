@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
-import ValidatedSelectOtherInput from "./select-other-input/ValidatedSelectOtherInput";
+import { useNavigate } from "react-router-dom";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+
+import { Inputs } from "../types";
 import LabeledInput from "./LabeledInput";
 import {
   DEFAULT_PAINTS,
   DEFAULT_QUANTITIES,
   DEFAULT_SHEENS,
 } from "../constants";
-import { Inputs } from "../types";
+import ValidatedSelectOtherInput from "./select-other-input/ValidatedSelectOtherInput";
 
-import { v4 as uuidv4 } from "uuid";
-import querystring from "querystring";
-import { useNavigate } from "react-router-dom";
 import ValidatedStep1 from "./ValidatedStep1";
+import { PostPaint } from "../PaintService";
 
 function GiveAwayPaint() {
   const navigate = useNavigate();
@@ -22,34 +22,11 @@ function GiveAwayPaint() {
   const { getValues, handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const {
-      brand,
-      email,
-      confirmEmail,
-      name,
-      quantity,
-      oneOf: { rgb, uploadPhoto },
-      sheen,
-    } = data;
-    let formData = new FormData();
-    formData.append("imageName", uuidv4());
-    formData.append("uploadPhoto", uploadPhoto.data!); //fix
+    debugger;
+    const response = await PostPaint(data);
 
-    let qs = querystring.encode({
-      brand,
-      email,
-      confirmEmail,
-      name,
-      quantity,
-      rgb,
-      sheen,
-    });
-    const response = await fetch(`/api/paints/?${qs}`, {
-      method: "POST",
-      body: formData,
-    });
-    navigate("/thank-you");
     if (response && response.status === 201) {
+      navigate("/thank-you");
     }
   };
 

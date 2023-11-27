@@ -1,0 +1,41 @@
+import querystring from "querystring";
+import { v4 as uuidv4 } from "uuid";
+import { Inputs } from "./types";
+
+const GetPaints = async () => {
+  const response = await fetch("/api/paints");
+  return await response.json();
+};
+
+const PostPaint = async (data: Inputs) => {
+  const {
+    brand,
+    email,
+    confirmEmail,
+    name,
+    quantity,
+    oneOf: { rgb, uploadPhoto },
+    sheen,
+  } = data;
+  let formData = new FormData();
+  formData.append("imageName", uuidv4());
+  formData.append("uploadPhoto", uploadPhoto.data!); //fix
+
+  let qs = querystring.encode({
+    brand,
+    email,
+    confirmEmail,
+    name,
+    quantity,
+    rgb,
+    sheen,
+  });
+  const response = await fetch(`/api/paints/?${qs}`, {
+    method: "POST",
+    body: formData,
+  });
+
+  return await response.json();
+};
+
+export { GetPaints, PostPaint };
