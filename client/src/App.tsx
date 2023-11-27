@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ViewPaints from "./ViewPaint/ViewPaints";
-import GiveAwayPaint from "./GiveAwayPaint/GiveAwayPaint";
+import ViewPaints from "./view-paint/ViewPaints";
+import GiveAwayPaint from "./give-away-paint/GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
 import Layout from "./Layout";
-import { ThirdColorProvider } from "./GiveAwayPaint/ThirdColor/ThirdColorContext";
+import { ThirdColorProvider } from "./give-away-paint/third-color/ThirdColorContext";
 import ActivePaints from "./admin/ActivePaints";
 import Login from "./admin/Login";
 import { AuthContextProvider } from "./useAuthContext";
