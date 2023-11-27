@@ -53,7 +53,7 @@ const SelectOtherInput: React.FC<selectOtherInputProps> = ({
   let controlToShow = showCustomInput ? (
     <div className="sm:flex sm:flex-row bg-blue-400n sm:w-full">
       <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
-        <label className="capitalize" htmlFor="email">
+        <label className="capitalize" htmlFor={name}>
           {label}
         </label>
       </span>
@@ -95,7 +95,9 @@ const SelectOtherInput: React.FC<selectOtherInputProps> = ({
   ) : (
     <>
       <span className="ml-10 sm:ml-0 sm:w-1/3 flex sm:justify-end p-1 sm:p-2">
-        <label htmlFor={id}>{label}</label>
+        <label className="capitalize" htmlFor={id}>
+          {label}
+        </label>
       </span>
       <div className="ml-0 sm:ml-0 w-2/3 rounded-md">
         <FlexSelect
