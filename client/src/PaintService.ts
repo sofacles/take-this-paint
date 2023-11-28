@@ -19,7 +19,7 @@ const PostPaint = async (data: Inputs) => {
   } = data;
   let formData = new FormData();
   formData.append("imageName", uuidv4());
-  if (uploadPhoto.data) {
+  if (uploadPhoto?.data) {
     formData.append("uploadPhoto", uploadPhoto.data);
   }
 
