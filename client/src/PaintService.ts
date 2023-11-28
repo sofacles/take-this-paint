@@ -19,7 +19,9 @@ const PostPaint = async (data: Inputs) => {
   } = data;
   let formData = new FormData();
   formData.append("imageName", uuidv4());
-  formData.append("uploadPhoto", uploadPhoto.data!); //fix
+  if (uploadPhoto.data) {
+    formData.append("uploadPhoto", uploadPhoto.data);
+  }
 
   let qs = querystring.encode({
     brand,
@@ -35,7 +37,9 @@ const PostPaint = async (data: Inputs) => {
     body: formData,
   });
 
-  return await response.json();
+  return {
+    status: response.status,
+  };
 };
 
 export { GetPaints, PostPaint };
