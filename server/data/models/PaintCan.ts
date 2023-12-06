@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 const PaintCanFactory = (connectedMongoose) => {
   const PaintCanSchema = new connectedMongoose.Schema({
     rgb: {
@@ -30,9 +31,23 @@ const PaintCanFactory = (connectedMongoose) => {
     },
     name: { type: String, required: true },
     quantity: { type: String, required: true },
-    email: { type: String, required: true },
+    postedOn: { type: Date, required: true },
+    emailRef: {
+      type: mongoose.Types.ObjectId,
+      ref: "PersonWithEmail",
+      required: false,
+    },
     emailConfirmed: { type: Boolean, required: false },
     sheen: { type: String, required: false },
+    zipCode: {
+      type: String,
+      required: false,
+      validate: {
+        validator: function (r) {
+          return /^\d{5}$/.test(r);
+        },
+      },
+    },
   });
 
   const PaintCan = connectedMongoose.model(

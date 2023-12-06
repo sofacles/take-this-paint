@@ -3,6 +3,7 @@ import ViewPaints from "./view-paint/ViewPaints";
 import GiveAwayPaint from "./give-away-paint/GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
+import SendMessage from "./SendMessage";
 import Layout from "./Layout";
 import { ThirdColorProvider } from "./give-away-paint/third-color/ThirdColorContext";
 import ActivePaints from "./admin/ActivePaints";
@@ -47,6 +48,15 @@ function App() {
             element={
               <Layout>
                 <ThankYou />
+              </Layout>
+            }
+          />
+
+          <Route
+            path="/send-message"
+            element={
+              <Layout>
+                <SendMessage />
               </Layout>
             }
           />

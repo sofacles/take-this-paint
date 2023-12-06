@@ -23,7 +23,8 @@
     "build": "npx tsc",
     "dev": "nodemon index.ts",
     "createAdminUser": "ts-node ./data/CreateAdminUser.ts",
-    "start:prod": "node build/server/index.js"
+    "start:prod": "node build/server/index.js",
+    "vaporize": "ts-node ./data/DeletePaintsAndUsersWithEmails.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.18",

@@ -26,9 +26,9 @@ const Login = () => {
     const response = await fetch("/api/login/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: JSON.stringify({ email, password }), // body data type must match "Content-Type" header
+      body: `email=${email}&password=${password}`, // body data type must match "Content-Type" header
     });
 
     if (response.status === 200) {

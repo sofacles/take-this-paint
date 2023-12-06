@@ -9,7 +9,7 @@ export const ImageTile = ({ paintUnit }: PaintTileProps) => {
 
   return (
     <Link
-      to="/SendMail"
+      to="/send-message"
       state={paintUnit}
       className={`m-2 border j border-black-4 `}
     >

@@ -13,14 +13,14 @@ const DeletePersonWithEmailModelsAndAllPaints = async () => {
   if (OK !== "yes") {
     process.exit(-1);
   }
+  Connect().then(async (mg) => {
+    await HydrateModels(mg);
 
-  const connectedMongoose = await Connect();
-  await HydrateModels(connectedMongoose);
-
-  await PaintCanModel.deleteMany({});
-  await PersonWithEmailModel.deleteMany({});
-  console.log("done");
-  process.exit(-1);
+    await PaintCanModel.deleteMany({});
+    await PersonWithEmailModel.deleteMany({});
+    console.log("done");
+    process.exit(-1);
+  });
 };
 
 DeletePersonWithEmailModelsAndAllPaints();

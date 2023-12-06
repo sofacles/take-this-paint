@@ -22,7 +22,6 @@ function GiveAwayPaint() {
   const { getValues, handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    debugger;
     const response = await PostPaint(data);
 
     if (response && response.status === 201) {
@@ -111,6 +110,8 @@ function GiveAwayPaint() {
               id="sheen"
               initialValues={DEFAULT_SHEENS}
             />
+
+            <LabeledInput id="zipCode" label="Zip code" />
 
             <div className="sm:flex sm:flex-wrap sm:justify-end">
               <input

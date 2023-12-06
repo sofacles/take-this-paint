@@ -18,7 +18,9 @@ const getPaints = async (_, res, next) => {
   try {
     const paints = await PaintCanModel.find({});
     for (let paint of paints) {
-      paint.imageName = getS3FileUrl(paint.imageName);
+      if (paint.imageName) {
+        paint.imageName = getS3FileUrl(paint.imageName);
+      }
     }
     res.status(200).json(paints);
     next();
@@ -45,13 +47,29 @@ const upload = multer({
 });
 
 const addPaint = async (req, res) => {
-  const postedPaint = req.query;
-  let paintObj = Object.assign({}, req.query);
-  paintObj.email = encrypt(postedPaint.email);
+  const { email, confirmEmail } = req.query;
+  if (email !== confirmEmail) {
+    return res.status(400).json({ msg: "Emails do not match" });
+  }
 
-  //paintObj.rgb = paintObj.rgb ? paintObj.rgb : "";
-  paintObj.imageName = req.body.imageName;
+  let paintObj: typeof PaintCanModel = Object.assign({}, req.query);
+  delete paintObj.email;
+  delete paintObj.confirmEmail;
+  const personWithEmailObj = {
+    email: encrypt(email),
+    secret: uuidv4(),
+  };
+  let personWithEmail = new PersonWithEmailModel(personWithEmailObj);
+  await personWithEmail.save().catch((err) => {
+    Logger.info("Error while saving personWithEmailObj:", JSON.stringify(err));
+    return res.send({ msg: "Unable to save paint." });
+  });
+
+  paintObj.emailRef = personWithEmail._id;
+  paintObj.postedOn = new Date();
+
   if (req.file && req.body.imageName) {
+    paintObj.imageName = req.body.imageName;
     //sendGMailToConfirmDonorsAddress(postedPaint.email, personWithEmailObj.secret);
     await putS3File(req.body.imageName, req.file);
   }
@@ -61,19 +79,6 @@ const addPaint = async (req, res) => {
     let paintChip = new PaintCanModel(paintObj);
     await paintChip.save().catch((err) => {
       Logger.info(JSON.stringify(err));
-    });
-
-    const personWithEmailObj = {
-      email: paintObj.email,
-      secret: uuidv4(),
-    };
-    let personWithEmail = new PersonWithEmailModel(personWithEmailObj);
-    await personWithEmail.save().catch((err) => {
-      Logger.info(
-        "Error while saving personWithEmailObj:",
-        JSON.stringify(err)
-      );
-      return res.send({ msg: "Unable to save paint." });
     });
 
     return res.status(201).json({ msg: "Paint saved!" });

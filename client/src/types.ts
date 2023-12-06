@@ -6,6 +6,7 @@ export type PaintType = {
   brand: string;
   quantity: string;
   sheen: string;
+  zipCode: string;
 };
 
 export type PaintTileProps = {
@@ -24,7 +25,6 @@ export type Inputs = {
   brand: string;
   confirmEmail: string;
   name: string;
-
   sheen: string;
   email: string;
   quantity: string;
@@ -32,8 +32,13 @@ export type Inputs = {
     rgb: string;
     uploadPhoto: UploadPhotoType;
   };
-
   zipCode: string;
+};
+
+export type MessageToDonorFields = {
+  confirmEmail: string;
+  email: string;
+  text: string;
 };
 
 export type ALLOWED_IDS_FOR_SELECT = "brand" | "quantity" | "sheen";

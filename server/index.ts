@@ -6,6 +6,7 @@ import Logger from "./Logger";
 import session from "express-session";
 import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
+import messageRouter from "./routes/message";
 import adminPaintRouter from "./routes/admin/paint";
 import Connect from "./data/mongooseConnection";
 import { HydrateModels } from "./data/models";
@@ -21,7 +22,11 @@ import {
 dotenv.config();
 
 const app: Express = express();
-app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(
   session({
     secret: process.env.SITE_OAUTH_LOGIN_SECRET,
@@ -43,6 +48,7 @@ Connect()
     app.use("/api/login", loginRouter);
     app.get("/api/health", getHealth);
     app.use("/api/paints", paintRouter);
+    app.use("/api/message", messageRouter);
     app.use("/api/admin/paints", adminPaintRouter);
 
     app.use(function (err, req, res, next) {

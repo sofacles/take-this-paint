@@ -1,8 +1,9 @@
 import express from "express";
 import fs from "fs/promises";
-import { PaintCanModel } from "../../data/models";
+import { PaintCanModel, PersonWithEmailModel } from "../../data/models";
 import { deleteFile, getS3FileUrl } from "../../data/s3";
 import verifyToken from "../../checkLoginMiddleware";
+import Logger from "../../Logger";
 
 const router = express.Router();
 
@@ -24,14 +25,28 @@ const getPaints = async (_, res, next) => {
 };
 
 const deletePaint = async (req, res) => {
+  Logger.info(`deletePaint: ${req.query.id}`);
   let doomedPaint = await PaintCanModel.findOne({ _id: req.query.id });
+  let doomedDonor = await PersonWithEmailModel.findOne({
+    _id: doomedPaint.emailRef,
+  });
+  doomedDonor.deleteOne({ _id: doomedPaint.emailRef }).catch((error: any) => {
+    Logger.error(error);
+    return res.send({
+      status: 400,
+      data: {
+        result: "delete image failed",
+      },
+    });
+  });
+
   if (doomedPaint.imageName) {
     try {
       await deleteFile(doomedPaint.imageName);
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return res.send({
-        status: 200,
+        status: 400,
         data: {
           result: "delete image failed",
         },

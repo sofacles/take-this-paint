@@ -20,6 +20,7 @@ const Logger = winston.createLogger({
     new winston.transports.File({
       filename: `${process.env.LOG_FOLDER}/combined.log`,
     }),
+    new winston.transports.Console(),
   ],
 });
 

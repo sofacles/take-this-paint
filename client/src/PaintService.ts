@@ -16,6 +16,7 @@ const PostPaint = async (data: Inputs) => {
     quantity,
     oneOf: { rgb, uploadPhoto },
     sheen,
+    zipCode,
   } = data;
   let formData = new FormData();
   formData.append("imageName", uuidv4());
@@ -31,6 +32,7 @@ const PostPaint = async (data: Inputs) => {
     quantity,
     rgb,
     sheen,
+    zipCode,
   });
   const response = await fetch(`/api/paints/?${qs}`, {
     method: "POST",

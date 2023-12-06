@@ -14,8 +14,12 @@ const router = express.Router();
 dotEnv.config();
 
 const Login = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const userModel = await UserModel.findOne({ email: req.body.email });
+    const userModel = await UserModel.findOne({
+      email: email,
+    });
     if (!userModel) {
       res.status(400).json({
         status: "failure",
@@ -25,10 +29,7 @@ const Login = async (req, res) => {
       return;
     }
 
-    const passwordMatches = await bcrypt.compare(
-      req.body.password,
-      userModel.password
-    );
+    const passwordMatches = await bcrypt.compare(password, userModel.password);
 
     if (passwordMatches) {
       const tokenPayload = {
