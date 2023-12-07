@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import { PaintTileProps } from "../types";
+import ComplementaryColor from "../give-away-paint/color-picker/OppositeColor";
 
 export const ImageTile = ({ paintUnit }: PaintTileProps) => {
-  const { name, rgb } = paintUnit;
+  const { name, rgb, zipCode } = paintUnit;
   const rgbStyle = {
     backgroundColor: `#${rgb}`,
+  };
+
+  const tileTextStyle = {
+    color: `#${ComplementaryColor(rgb)}`,
   };
 
   return (
@@ -24,7 +29,10 @@ export const ImageTile = ({ paintUnit }: PaintTileProps) => {
             src={`uploads/blank.png`}
           />
         )}
-        <div className="p-0 m-0 w-full mb-4 ">{name}</div>
+        <div className="relative bottom-2 right-2"></div>
+        <div className="p-0 m-0 w-full mb-4" style={tileTextStyle}>
+          {name}, {zipCode}
+        </div>
       </div>
     </Link>
   );
