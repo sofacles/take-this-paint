@@ -15,6 +15,7 @@ const PaintChipAdmin = () => {
       quantity: "",
       rgb: "",
       sheen: "",
+      zipCode: "",
     },
   ]);
 

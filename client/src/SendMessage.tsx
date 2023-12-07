@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { MessageToDonorFields, PaintType } from "./types";
+import { MessageToDonorFields } from "./types";
 
-const SendMessage = (props) => {
+const SendMessage = () => {
   const [mailSent, setMailSent] = useState(false);
   const location = useLocation();
-
   const paint = location.state;
-
   const needHash = paint.rgb && paint.rgb[0] !== "#";
 
   const rgbStyle = {
@@ -44,7 +42,7 @@ const SendMessage = (props) => {
   } = methods;
 
   const onSubmit: SubmitHandler<MessageToDonorFields> = async (data) => {
-    const { email, confirmEmail, text } = getValues();
+    const { email, confirmEmail, text } = data;
     await fetch("/api/message", {
       method: "POST",
       headers: {
