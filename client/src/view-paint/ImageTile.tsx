@@ -9,8 +9,12 @@ export const ImageTile = ({ paintUnit }: PaintTileProps) => {
   };
 
   const tileTextStyle = {
-    color: `#${ComplementaryColor(rgb)}`,
+    color: "#333",
   };
+
+  if (rgb) {
+    tileTextStyle.color = `#${ComplementaryColor(rgb)}`;
+  }
 
   return (
     <Link

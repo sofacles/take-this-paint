@@ -3,6 +3,7 @@ import dotEnv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
+import Logger from "../Logger";
 import { UserModel } from "../data/models";
 import {
   ACCESS_TOKEN_LIFESPAN,
@@ -75,7 +76,7 @@ const Login = async (req, res) => {
       res.status(401).json({ message: "login failed" });
     }
   } catch (err) {
-    console.error(err);
+    Logger.error(err);
     res.status(err.status).json({
       status: "fail",
       message: err.message,
