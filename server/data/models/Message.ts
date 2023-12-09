@@ -19,6 +19,7 @@ const MessageFactory = (connectedMongoose) => {
       required: true,
     },
     postedOn: { type: Date, required: false, default: Date.now },
+    sent: { type: Boolean, required: false, default: false },
   });
 
   const MessageModel = connectedMongoose.model(

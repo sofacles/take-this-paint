@@ -79,10 +79,18 @@ function Layout({ children }: PropsWithChildren) {
               </li>
               <li>
                 <Link
-                  to="/admin"
+                  to="/adminPaints"
                   className="block py-2 mb-2 md:mb-0 pl-3 focus:bg-emerald-300 md:focus:bg-transparent md:focus:underlinepr-4 text-emerald-700 bg-emerald-100 rounded md:bg-transparent md:text-emerald-700 md:p-0 dark:text-white"
                 >
-                  Admin
+                  Admin paints
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/adminMessages"
+                  className="block py-2 mb-2 md:mb-0 pl-3 focus:bg-emerald-300 md:focus:bg-transparent md:focus:underlinepr-4 text-emerald-700 bg-emerald-100 rounded md:bg-transparent md:text-emerald-700 md:p-0 dark:text-white"
+                >
+                  Admin messages
                 </Link>
               </li>
             </ul>

@@ -8,6 +8,9 @@ import getHealth from "./routes/health";
 import paintRouter from "./routes/paint";
 import messageRouter from "./routes/message";
 import adminPaintRouter from "./routes/admin/paint";
+import adminMessageRouter from "./routes/admin/messages";
+import adminPersonsWithEmailsRouter from "./routes/admin/personsWithEmails";
+import { confirmEmail, confirmDonorEmail } from "./routes/email";
 import Connect from "./data/mongooseConnection";
 import { HydrateModels } from "./data/models";
 import loginRouter from "./routes/login";
@@ -27,6 +30,7 @@ app.use(
     extended: true,
   })
 );
+app.use(bodyParser.json());
 app.use(
   session({
     secret: process.env.SITE_OAUTH_LOGIN_SECRET,
@@ -48,8 +52,12 @@ Connect()
     app.use("/api/login", loginRouter);
     app.get("/api/health", getHealth);
     app.use("/api/paints", paintRouter);
+    app.post("/api/confirmDonorEmail", confirmDonorEmail);
+    app.post("/api/confirmEmail", confirmEmail);
     app.use("/api/message", messageRouter);
     app.use("/api/admin/paints", adminPaintRouter);
+    app.use("/api/admin/messages", adminMessageRouter);
+    app.use("/api/admin/personsWithEmails", adminPersonsWithEmailsRouter);
 
     app.use(function (err, req, res, next) {
       // set locals, only providing error in development

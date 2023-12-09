@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PaintCan } from "./PaintCan";
 
 const PaintChipAdmin = () => {
@@ -43,16 +43,26 @@ const PaintChipAdmin = () => {
   });
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Image</th>
-          <th>Commands</th>
-        </tr>
-      </thead>
-      <tbody>{thePaints}</tbody>
-    </table>
+    <div>
+      <p>
+        <Link
+          to="/adminMessages"
+          className="underline text-blue-600 hover:text-amber-800"
+        >
+          Admin PWEs and Messages
+        </Link>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Commands</th>
+          </tr>
+        </thead>
+        <tbody>{thePaints}</tbody>
+      </table>
+    </div>
   );
 };
 

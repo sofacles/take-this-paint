@@ -30,15 +30,18 @@ const deletePaint = async (req, res) => {
   let doomedDonor = await PersonWithEmailModel.findOne({
     _id: doomedPaint.emailRef,
   });
-  doomedDonor.deleteOne({ _id: doomedPaint.emailRef }).catch((error: any) => {
-    Logger.error(error);
-    return res.send({
-      status: 400,
-      data: {
-        result: "delete image failed",
-      },
+  //It's possible that the donor was deleted using the admin tool.
+  if (doomedDonor) {
+    doomedDonor.deleteOne({ _id: doomedPaint.emailRef }).catch((error: any) => {
+      Logger.error(error);
+      return res.send({
+        status: 400,
+        data: {
+          result: "delete image failed",
+        },
+      });
     });
-  });
+  }
 
   if (doomedPaint.imageName) {
     try {

@@ -48,17 +48,18 @@ const SendMessage = () => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
-      body: `paintId=${paint._id}&email=${email}&confirmEmail=${confirmEmail}&text=${text}`,
+      body: `paintId=${paint._id}&email=${encodeURIComponent(
+        email
+      )}&confirmEmail=${encodeURIComponent(confirmEmail)}&text=${text}`,
     });
     setMailSent(true);
   };
 
-  // if (response && response.status === 201) {
-  //   navigate("/thank-you");
-  // }
-
   return mailSent ? (
-    <div> thanks for your message</div>
+    <div>
+      Thanks for your message. Please check your inbox for an email from our
+      system to confirm your email address.
+    </div>
   ) : (
     <div className="paint-detail">
       <h2 className="my-4 text-xl">
@@ -81,19 +82,11 @@ const SendMessage = () => {
 
         <div style={rgbStyle}>{image}</div>
       </div>
-      <h3>
-        Dec 7, 2023. This is under construction. I'm trying to set up an
-        anonymized email system, like Craigslist. It's turning out to be
-        trickier than I thought. I am just storing an ecrypted copy of whatever
-        email you enter in a database for now. It's fine to enter a fake email,
-        since I'm really using it as a way to identify paint donors I might just
-        go with having users sign up and then have in-app messaging between
-        donors and recipients.
-      </h3>
+
       <p className="pt-4">
-        Please enter your email address below. We will set up a temporary email
-        account for you that the paint donor can use to contact you and you can
-        cancel it with a link that we will send to your inbox.
+        Please enter your email address below and an optional message. After you
+        confirm your email with the link we send, we'll relay your message to
+        the donor of this paint.
       </p>
       <FormProvider {...methods}>
         <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>

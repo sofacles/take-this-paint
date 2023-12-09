@@ -4,11 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import { getS3FileUrl, putS3File } from "../data/s3";
 import Logger from "../Logger";
-import { encrypt, decrypt } from "../cryptoService";
 
 import { PaintCanModel, PersonWithEmailModel } from "../data/models";
 
-//import { sendGMailToConfirmDonorsAddress } from "../gmailService";
+import { SendEmailToConfirmEmailAddressAndPaint } from "../SendSESMail";
 
 const router = express.Router();
 
@@ -16,7 +15,7 @@ const storage = multer.memoryStorage();
 
 const getPaints = async (_, res, next) => {
   try {
-    const paints = await PaintCanModel.find({});
+    const paints = await PaintCanModel.find({ emailConfirmed: true });
     for (let paint of paints) {
       if (paint.imageName) {
         paint.imageName = getS3FileUrl(paint.imageName);
@@ -56,12 +55,14 @@ const addPaint = async (req, res) => {
   delete paintObj.email;
   delete paintObj.confirmEmail;
   const personWithEmailObj = {
-    email: encrypt(email),
+    email: email,
     secret: uuidv4(),
   };
   let personWithEmail = new PersonWithEmailModel(personWithEmailObj);
   await personWithEmail.save().catch((err) => {
     Logger.info("Error while saving personWithEmailObj:", JSON.stringify(err));
+    Logger.error(err);
+    Logger.info("-----------------------------------");
     return res.send({ msg: "Unable to save paint." });
   });
 
@@ -78,8 +79,24 @@ const addPaint = async (req, res) => {
     //Logger.info(JSON.stringify(paintObj));
     let paintChip = new PaintCanModel(paintObj);
     await paintChip.save().catch((err) => {
-      Logger.info(JSON.stringify(err));
+      Logger.info(
+        `Hey we're about to delete personWithEmailModel for ${email}.  Err: ${JSON.stringify(
+          err
+        )}`
+      );
+      Logger.error(err);
+      Logger.info("-----------------------------------");
+      personWithEmail.delete();
     });
+    try {
+      SendEmailToConfirmEmailAddressAndPaint(
+        email,
+        personWithEmailObj.secret,
+        paintChip._id
+      );
+    } catch (err) {
+      Logger.error(err);
+    }
 
     return res.status(201).json({ msg: "Paint saved!" });
   } catch (error) {
