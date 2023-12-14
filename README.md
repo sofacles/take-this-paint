@@ -1,20 +1,10 @@
 # Take this paint
 
-This is a react app that lets people give away their partial cans of paint after they've finished painting. You can anonymously post a paint, including a picture and there's also a color picker control that lets you pick a 3 (hexadecimal) digit color on a little palette.
+This is a react app that lets people give away their partial cans of paint after they've finished painting. You can anonymously post a paint, including a picture and there's also a color picker control that lets you pick a 3 (hexadecimal) digit color on a little palette. The system sends you, the donor, a confirmation email and once you click that link, your paint should show up on the site.
 
-The front end is in react, the back end is an Express app written in ts-node. The paints and encrypted emails are stored in MongoDB. I'm resizing the images with multer and storing them in my static images folder.
+The front end is in react, the back end is an Express app written in ts-node. The paints and encrypted emails are stored in MongoDB. I'm resizing the images with multer and storing them in S3.
 
-The idea is that somebody will be able to send you a mail through Nodemailer with a randomized to and from address, like craigslist does, so the two of you can meet and you can get rid of your paint.
-
-## Update Nov 27, 2023
-
-Using .dotenv for connection strings and the other stuff I was keeping in config.ts.
-
-## Update Nov 17, 2023
-
-OK, most everything is tailwindified and I decided that I was thinkig about vite wrong. It's a static site builder. I think adding pictures after build time and them having them be instantly visible just isn't what it was designed for. Now I'm storing images in an S3 bucket where the objects are all readable.
-
-This is configured so it can run on nginx in prod. If you run this locally, you'll need the fetch calls to start with "server" instead of "api". Same for the `app.use()`s and `app.get()`s in `server/index.ts`;
+You can also tell the paint donor that you'd like to take the paint off their hands. Click on a paint, enter your email and message the donor of the paint. After you confirm that email address, the system sends your message to the paint donor.
 
 ## Screenshots
 
@@ -40,10 +30,6 @@ Unit tests are coming. My (shameful) lack of unit tests makes me have to spend w
 
 ## Roadmap
 
-- Start using dotenv, get rid of my config file
-- Fix the casing on the form labels
-- Get a domain and an SSL cert
-- Get gmail API working with said cert
 - Unit tests
 - Write an API that lets me send paint donors an email with which they can eventually delete their posting
 - Some end-to-end Cypress tests
