@@ -31,6 +31,7 @@ const PaintChipAdmin = () => {
           <tr>
             <th>Name</th>
             <th>Image</th>
+            <th>Email confirmed</th>
             <th>Commands</th>
           </tr>
         </thead>

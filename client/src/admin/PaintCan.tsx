@@ -1,5 +1,6 @@
-import { PaintTileProps } from "../types";
 import { useRef } from "react";
+import BTD from "./BorderedTableCell";
+import { PaintTileProps } from "../types";
 
 interface AdminPaintTypeType extends PaintTileProps {
   onDelete: (id: string) => void;
@@ -49,16 +50,16 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
 
   return (
     <tr>
-      <td>{paintUnit.name}</td>
+      <BTD>{paintUnit.name}</BTD>
 
-      <td style={imgStyle}>
+      <BTD style={imgStyle}>
         {paintUnit.imageName ? (
           <img alt="paint color" style={imgStyle} src={paintUnit.imageName} />
         ) : (
           <div style={rgbStyle} />
         )}
-      </td>
-      <td>
+      </BTD>
+      <BTD>
         email confirmed?
         <input
           type="checkbox"
@@ -66,10 +67,15 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
           defaultChecked={paintUnit.emailConfirmed}
           onChange={updateEmailConfirmed}
         />
-      </td>
-      <td>
-        <button onClick={deletePaint}>delete</button>
-      </td>
+      </BTD>
+      <BTD>
+        <button
+          className="bg-emerald-400 border-2 rounded-md p-1  hover:border-red-500"
+          onClick={deletePaint}
+        >
+          delete
+        </button>
+      </BTD>
     </tr>
   );
 };
