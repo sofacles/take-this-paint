@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   GetAdminMessages,
-  AdminPersonsWithEmailService,
+  getAdminPersonWithEmails,
   deletePersonWithEmail,
   deleteMessage,
   updateEmailConfirmed,
@@ -44,7 +44,7 @@ const AdminMessages = () => {
     deletePersonWithEmail(id);
   };
 
-  const personsWithEmail = AdminPersonsWithEmailService();
+  const personsWithEmail = getAdminPersonWithEmails();
   let thePWEs = personsWithEmail?.map((pwe, index) => {
     return (
       <tr key={pwe._id}>

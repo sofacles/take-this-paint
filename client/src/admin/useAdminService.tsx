@@ -32,7 +32,7 @@ const GetAdminMessages = () => {
   return messages;
 };
 
-const AdminPersonsWithEmailService = () => {
+const getAdminPersonWithEmails = () => {
   const navigate = useNavigate();
   const [personsWithEmails, setPersonsWithEmails] = useState([
     {
@@ -118,7 +118,7 @@ const deletePersonWithEmail = (personWithEmailId: string) => {
 export {
   GetAdminMessages,
   deleteMessage,
-  AdminPersonsWithEmailService,
+  getAdminPersonWithEmails,
   deletePersonWithEmail,
   updateEmailConfirmed,
 };
