@@ -5,7 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 import { getS3FileUrl, putS3File } from "../data/s3";
 import Logger from "../Logger";
 
-import { PaintCanModel, PersonWithEmailModel } from "../data/models";
+import {
+  PaintCanModel,
+  PersonWithEmailModel,
+  ZipCodeModel,
+} from "../data/models";
+import GetDistanceBetween from "../data/models/DistanceCalculator";
 
 import { SendEmailToConfirmEmailAddressAndPaint } from "../SendSESMail";
 
@@ -15,13 +20,34 @@ const storage = multer.memoryStorage();
 
 const getPaints = async (_, res, next) => {
   try {
+    const nearbyPaints = [];
+    const radius = 20;
+    const usersZipCode = "98122";
     const paints = await PaintCanModel.find({ emailConfirmed: true });
     for (let paint of paints) {
-      if (paint.imageName) {
-        paint.imageName = getS3FileUrl(paint.imageName);
+      const userGeo = await ZipCodeModel.findOne({
+        zip: usersZipCode,
+      });
+      const { lat: usersLat, long: usersLon } = userGeo;
+      const paintGeo = await ZipCodeModel.findOne({
+        zip: paint.zipCode,
+      });
+      const { lat: paintLat, long: paintLon } = paintGeo;
+      const distance = GetDistanceBetween(
+        usersLat,
+        usersLon,
+        paintLat,
+        paintLon
+      );
+      if (distance <= radius) {
+        if (paint.imageName) {
+          paint.imageName = getS3FileUrl(paint.imageName);
+        }
+
+        nearbyPaints.push(paint);
       }
     }
-    res.status(200).json(paints);
+    res.status(200).json(nearbyPaints);
     next();
   } catch (error) {
     res.status(500).json({ err: error });

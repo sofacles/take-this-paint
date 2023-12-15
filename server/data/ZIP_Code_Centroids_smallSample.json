@@ -1,0 +1,245 @@
+
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 1,
+        "STD_ZIP5": "00601",
+        "USPS_ZIP_PREF_CITY_1221": "ADJUNTAS",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.139845025",
+        "LONGITUDE": "-66.703300221",
+        "LAT": 18.139845025,
+        "LGT": -66.703300221000006
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.703300220999949, 18.139845025000056]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 2,
+        "STD_ZIP5": "00602",
+        "USPS_ZIP_PREF_CITY_1221": "AGUADA",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.384364416",
+        "LONGITUDE": "-67.183857905",
+        "LAT": 18.384364416,
+        "LGT": -67.183857904999996
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-67.183857904999968, 18.384364416000039]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 3,
+        "STD_ZIP5": "00603",
+        "USPS_ZIP_PREF_CITY_1221": "AGUADILLA",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.450707994",
+        "LONGITUDE": "-67.145194885",
+        "LAT": 18.450707993999998,
+        "LGT": -67.145194884999995
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-67.145194884999967, 18.450707994000027]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 4,
+        "STD_ZIP5": "00604",
+        "USPS_ZIP_PREF_CITY_1221": "AGUADILLA",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.493863",
+        "LONGITUDE": "-67.147469",
+        "LAT": 18.493863,
+        "LGT": -67.147469
+      },
+      "geometry": { "type": "Point", "coordinates": [-67.147469, 18.493863] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 5,
+        "STD_ZIP5": "00605",
+        "USPS_ZIP_PREF_CITY_1221": "AGUADILLA",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.4437",
+        "LONGITUDE": "-67.1383",
+        "LAT": 18.4437,
+        "LGT": -67.1383
+      },
+      "geometry": { "type": "Point", "coordinates": [-67.1383, 18.4437] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 6,
+        "STD_ZIP5": "00606",
+        "USPS_ZIP_PREF_CITY_1221": "MARICAO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.181248922",
+        "LONGITUDE": "-66.979567507",
+        "LAT": 18.181248922000002,
+        "LGT": -66.979567507
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.979567506999956, 18.181248922000066]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 7,
+        "STD_ZIP5": "00610",
+        "USPS_ZIP_PREF_CITY_1221": "ANASCO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.283642319",
+        "LONGITUDE": "-67.144631347",
+        "LAT": 18.283642318999998,
+        "LGT": -67.144631347000001
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-67.144631346999972, 18.283642319000023]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 8,
+        "STD_ZIP5": "00611",
+        "USPS_ZIP_PREF_CITY_1221": "ANGELES",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.2753",
+        "LONGITUDE": "-66.8139",
+        "LAT": 18.2753,
+        "LGT": -66.8139
+      },
+      "geometry": { "type": "Point", "coordinates": [-66.8139, 18.2753] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 9,
+        "STD_ZIP5": "00612",
+        "USPS_ZIP_PREF_CITY_1221": "ARECIBO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.458773013",
+        "LONGITUDE": "-66.721831317",
+        "LAT": 18.458773012999998,
+        "LGT": -66.721831316999996
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.721831316999953, 18.458773013000041]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 10,
+        "STD_ZIP5": "00613",
+        "USPS_ZIP_PREF_CITY_1221": "ARECIBO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.465646952",
+        "LONGITUDE": "-66.723887699",
+        "LAT": 18.465646952,
+        "LGT": -66.723887699000002
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.723887698999988, 18.465646952000043]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 11,
+        "STD_ZIP5": "00614",
+        "USPS_ZIP_PREF_CITY_1221": "ARECIBO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.4609",
+        "LONGITUDE": "-66.7377",
+        "LAT": 18.4609,
+        "LGT": -66.7377
+      },
+      "geometry": { "type": "Point", "coordinates": [-66.7377, 18.4609] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 12,
+        "STD_ZIP5": "00616",
+        "USPS_ZIP_PREF_CITY_1221": "BAJADERO",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.444080679",
+        "LONGITUDE": "-66.619231383",
+        "LAT": 18.444080679,
+        "LGT": -66.619231383
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.619231382999942, 18.444080679000024]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 13,
+        "STD_ZIP5": "00617",
+        "USPS_ZIP_PREF_CITY_1221": "BARCELONETA",
+        "USPS_ZIP_PREF_STATE_1221": "PR",
+        "LATITUDE": "18.440355674",
+        "LONGITUDE": "-66.546730027",
+        "LAT": 18.440355674,
+        "LGT": -66.546730026999995
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-66.546730026999967, 18.440355674000045]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 1264,
+        "STD_ZIP5": "04438",
+        "USPS_ZIP_PREF_CITY_1221": "FRANKFORT",
+        "USPS_ZIP_PREF_STATE_1221": "ME",
+        "LATITUDE": "44.599404291",
+        "LONGITUDE": "-68.924248942",
+        "LAT": 44.599404291,
+        "LGT": -68.924248942000006
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-68.924248941999963, 44.599404291000042]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 1265,
+        "STD_ZIP5": "04441",
+        "USPS_ZIP_PREF_CITY_1221": "GREENVILLE",
+        "USPS_ZIP_PREF_STATE_1221": "ME",
+        "LATITUDE": "45.504676361",
+        "LONGITUDE": "-69.555015832",
+        "LAT": 45.504676361000001,
+        "LGT": -69.555015831999995
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-69.555015831999981, 45.504676361000065]
+      }
+    }
