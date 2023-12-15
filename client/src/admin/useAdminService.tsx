@@ -29,10 +29,10 @@ const GetAdminMessages = () => {
       });
   }, []);
 
-  return messages;
+  return { messages, setMessages };
 };
 
-const AdminPersonsWithEmailService = () => {
+const getAdminPersonWithEmails = () => {
   const navigate = useNavigate();
   const [personsWithEmails, setPersonsWithEmails] = useState([
     {
@@ -58,7 +58,7 @@ const AdminPersonsWithEmailService = () => {
       });
   }, []);
 
-  return personsWithEmails;
+  return { personsWithEmails, setPersonsWithEmails };
 };
 
 const deleteMessage = (messageId: string) => {
@@ -115,10 +115,46 @@ const deletePersonWithEmail = (personWithEmailId: string) => {
   });
 };
 
+const getAdminPaints = () => {
+  const navigate = useNavigate();
+  const [paintChips, setPaintChips] = useState([
+    {
+      _id: "1",
+      brand: "",
+      email: "",
+      emailConfirmed: false,
+      emailRef: "",
+      imageName: "",
+      name: "",
+      quantity: "",
+      rgb: "",
+      sheen: "",
+      zipCode: "",
+    },
+  ]);
+  useEffect(() => {
+    fetch(`/api/admin/paints?zip=12345`)
+      .then((x) => {
+        if (x.status === 401) {
+          navigate("/login"); //TODO: move this 401 check into useAuthContext?
+        }
+        return x.json();
+      })
+      .then((t) => {
+        setPaintChips(t);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  return { paintChips, setPaintChips };
+};
+
 export {
   GetAdminMessages,
   deleteMessage,
-  AdminPersonsWithEmailService,
+  getAdminPersonWithEmails,
   deletePersonWithEmail,
   updateEmailConfirmed,
+  getAdminPaints,
 };

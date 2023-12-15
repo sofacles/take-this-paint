@@ -8,8 +8,10 @@ import ConfirmEmail from "./ConfirmEmail";
 import ConfirmDonorEmail from "./ConfirmDonorEmail";
 import Layout from "./Layout";
 import { ThirdColorProvider } from "./give-away-paint/third-color/ThirdColorContext";
+import Admin from "./admin/Admin";
 import ActivePaints from "./admin/ActivePaints";
 import AdminMessages from "./admin/Messages";
+import PersonsWithEmails from "./admin/PersonsWithEmails";
 import Login from "./admin/Login";
 import { AuthContextProvider } from "./useAuthContext";
 
@@ -81,22 +83,18 @@ function App() {
           />
 
           <Route
-            path="/adminPaints"
+            path="/admin"
             element={
               <Layout>
-                <ActivePaints />
+                <Admin />
               </Layout>
             }
-          />
+          >
+            <Route path="paints" index element={<ActivePaints />} />
+            <Route path="messages" element={<AdminMessages />} />
+            <Route path="persons-with-emails" element={<PersonsWithEmails />} />
+          </Route>
 
-          <Route
-            path="/adminMessages"
-            element={
-              <Layout>
-                <AdminMessages />
-              </Layout>
-            }
-          />
           <Route
             path="/login"
             element={

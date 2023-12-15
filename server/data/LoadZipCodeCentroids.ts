@@ -1,10 +1,13 @@
-import Connect from "./mongooseConnection";
-import { HydrateModels, ZipCodeModel } from "./models";
 import fs from "fs";
 import readline from "readline";
+import promptSync from "prompt-sync";
+
+import Connect from "./mongooseConnection";
+import { HydrateModels, ZipCodeModel } from "./models";
+const inputFileName = "./ZIP_Code_Population_Weighted_Centroids.geojson";
 
 const LoadZipCodeCentroids = async () => {
-  const readStream = fs.createReadStream("./ZIP_Code_Centroids.json");
+  const readStream = fs.createReadStream(inputFileName);
 
   const rl = readline.createInterface({
     input: readStream,
@@ -19,12 +22,13 @@ const LoadZipCodeCentroids = async () => {
   const endOfZipCodeObj = "    },";
 
   const message = fs.createWriteStream("./ZipCodeSeed1.json");
-
+  //I am parsing a file that's not real JSON.  That's why I can always assume each zipcode object ends with "},".
   for await (const line of rl) {
     if (line !== endOfZipCodeObj) {
       currentZipCodeString += line;
     } else {
       currentZipCodeString += line;
+
       currentZipCodeString = currentZipCodeString.slice(0, -1);
       console.log();
       console.log();
@@ -49,9 +53,24 @@ const LoadZipCodeCentroids = async () => {
 };
 
 const main = async () => {
+  if (!fs.existsSync(inputFileName)) {
+    console.log(
+      `${inputFileName} does not exist.  Stopping now before we delete all the zipcodes in the DB.`
+    );
+    process.exit(-1);
+  }
+  const prompt = promptSync();
+  console.log("Are you sure you want to delete all zipcodes yes / no");
+  const OK = prompt("> ");
+
+  if (OK !== "yes") {
+    process.exit(-1);
+  }
   Connect().then(async (mg) => {
     await HydrateModels(mg);
-
+    await ZipCodeModel.deleteMany({}).catch((err) => {
+      console.log("Error while deleting zipcodes:", JSON.stringify(err));
+    });
     await LoadZipCodeCentroids();
     console.log("done");
     process.exit(-1);

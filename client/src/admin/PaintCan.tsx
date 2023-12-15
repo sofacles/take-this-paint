@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import BTD from "./BorderedTableCell";
 import { PaintTileProps } from "../types";
 
 interface AdminPaintTypeType extends PaintTileProps {
@@ -5,6 +7,7 @@ interface AdminPaintTypeType extends PaintTileProps {
 }
 
 export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
+  const emailConfirmedRef = useRef<HTMLInputElement>(null);
   const imgStyle = {
     height: "90%",
   };
@@ -27,20 +30,56 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
       });
   };
 
+  const updateEmailConfirmed = () => {
+    fetch("/api/admin/paints", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailConfirmed: emailConfirmedRef.current?.checked,
+        _id: paintUnit._id,
+      }),
+    }).then((x) => {
+      if (x.status === 204) {
+        return true;
+      }
+      return false;
+    });
+  };
+
   return (
     <tr>
-      <td>{paintUnit.name}</td>
+      <BTD>{paintUnit.name}</BTD>
 
-      <td style={imgStyle}>
+      <BTD>
         {paintUnit.imageName ? (
           <img alt="paint color" style={imgStyle} src={paintUnit.imageName} />
         ) : (
           <div style={rgbStyle} />
         )}
-      </td>
-      <td>
-        <button onClick={deletePaint}>delete</button>
-      </td>
+      </BTD>
+      <BTD title={paintUnit.emailRef}>{`...${paintUnit.emailRef.slice(
+        -6
+      )}`}</BTD>
+      <BTD>
+        email confirmed?
+        <input
+          className="ml-2"
+          type="checkbox"
+          ref={emailConfirmedRef}
+          defaultChecked={paintUnit.emailConfirmed}
+          onChange={updateEmailConfirmed}
+        />
+      </BTD>
+      <BTD>
+        <button
+          className="bg-emerald-400 border-2 rounded-md p-1  hover:border-red-500"
+          onClick={deletePaint}
+        >
+          delete
+        </button>
+      </BTD>
     </tr>
   );
 };
