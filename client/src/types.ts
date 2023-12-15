@@ -1,6 +1,7 @@
 export type PaintType = {
   _id: string;
   emailConfirmed: boolean;
+  emailRef: string;
   rgb: string;
   name: string;
   imageName: string;

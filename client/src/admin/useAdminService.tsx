@@ -58,7 +58,7 @@ const getAdminPersonWithEmails = () => {
       });
   }, []);
 
-  return personsWithEmails;
+  return { personsWithEmails, setPersonsWithEmails };
 };
 
 const deleteMessage = (messageId: string) => {
@@ -123,6 +123,7 @@ const getAdminPaints = () => {
       brand: "",
       email: "",
       emailConfirmed: false,
+      emailRef: "",
       imageName: "",
       name: "",
       quantity: "",

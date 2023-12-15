@@ -52,13 +52,16 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
     <tr>
       <BTD>{paintUnit.name}</BTD>
 
-      <BTD style={imgStyle}>
+      <BTD>
         {paintUnit.imageName ? (
           <img alt="paint color" style={imgStyle} src={paintUnit.imageName} />
         ) : (
           <div style={rgbStyle} />
         )}
       </BTD>
+      <BTD title={paintUnit.emailRef}>{`...${paintUnit.emailRef.slice(
+        -6
+      )}`}</BTD>
       <BTD>
         email confirmed?
         <input

@@ -29,14 +29,19 @@ const AdminMessages = () => {
         >{`...${msg.interestedPartyEmail.slice(-6)}`}</BTD>
         <BTD>{new Date(msg.postedOn).toLocaleString()}</BTD>
         <BTD>
-          <button onClick={() => onDeleteMessage(msg._id)}>delete</button>
+          <button
+            className="bg-emerald-400 border-2 rounded-md p-1  hover:border-red-500"
+            onClick={() => onDeleteMessage(msg._id)}
+          >
+            delete
+          </button>
         </BTD>
       </tr>
     );
   });
 
   const onEmailConfirmedChange = (index: number, confirmed: boolean) => {
-    const associatedPWE = personsWithEmail[index];
+    const associatedPWE = personsWithEmails[index];
     updateEmailConfirmed(associatedPWE._id, confirmed);
   };
 
@@ -44,12 +49,13 @@ const AdminMessages = () => {
     deletePersonWithEmail(id);
   };
 
-  const personsWithEmail = getAdminPersonWithEmails();
-  let thePWEs = personsWithEmail?.map((pwe, index) => {
+  const { personsWithEmails, setPersonsWithEmails } =
+    getAdminPersonWithEmails();
+  let thePWEs = personsWithEmails?.map((pwe, index) => {
     return (
       <tr key={pwe._id}>
         <BTD title={pwe._id}>{`...${pwe._id.slice(-6)}`}</BTD>
-        <BTD>{pwe.email}</BTD>
+        <BTD>{`...${pwe.email.slice(-6)}`}</BTD>
         <BTD>{pwe.secret}</BTD>
         <BTD>
           <input
@@ -64,7 +70,17 @@ const AdminMessages = () => {
           />
         </BTD>
         <BTD>
-          <button onClick={() => onDeletePWEClick(pwe._id)}>delete</button>
+          <button
+            className="bg-emerald-400 border-2 rounded-md p-1  hover:border-red-500"
+            onClick={() => {
+              onDeletePWEClick(pwe._id);
+              setPersonsWithEmails(
+                personsWithEmails.filter((p) => p._id !== pwe._id)
+              );
+            }}
+          >
+            delete
+          </button>
         </BTD>
       </tr>
     );
@@ -90,6 +106,7 @@ const AdminMessages = () => {
             <th>donorEmail</th>
             <th>interestedPartyEmail</th>
             <th>postedOn</th>
+            <th>command</th>
           </tr>
         </thead>
         <tbody>{theMessages}</tbody>
@@ -103,6 +120,7 @@ const AdminMessages = () => {
             <th>email</th>
             <th>secret</th>
             <th>emailConfirmed</th>
+            <th>command</th>
           </tr>
         </thead>
         <tbody>{thePWEs}</tbody>
