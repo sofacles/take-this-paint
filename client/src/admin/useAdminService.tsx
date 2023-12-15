@@ -29,7 +29,7 @@ const GetAdminMessages = () => {
       });
   }, []);
 
-  return messages;
+  return { messages, setMessages };
 };
 
 const getAdminPersonWithEmails = () => {

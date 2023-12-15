@@ -11,11 +11,12 @@ import BTD from "./BorderedTableCell";
 
 type CheckBoxRefType = HTMLInputElement | null;
 const AdminMessages = () => {
-  const messages = GetAdminMessages();
+  const { messages, setMessages } = GetAdminMessages();
   const checkboxesForEmailConfirmed = useRef<CheckBoxRefType[]>([]);
 
   const onDeleteMessage = (id: string) => {
     deleteMessage(id);
+    setMessages(messages?.filter((m) => m._id !== id));
   };
 
   let theMessages = messages?.map((msg) => {
