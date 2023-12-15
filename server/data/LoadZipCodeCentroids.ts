@@ -3,13 +3,10 @@ import fs from "fs";
 import readline from "readline";
 
 const LoadZipCodeCentroids = async () => {
-  const fileStream = fs.createReadStream(
-    "./ZIP_Code_Centroids_smallSample.json"
-  );
-  const writeStream = fs.createWriteStream("zip1.json");
+  const readStream = fs.createReadStream("./ZIP_Code_Centroids.json");
 
   const rl = readline.createInterface({
-    input: fileStream,
+    input: readStream,
     crlfDelay: Infinity,
   });
   // Note: we use the crlfDelay option to recognize all instances of CR LF
@@ -18,10 +15,9 @@ const LoadZipCodeCentroids = async () => {
   let currentZipCodeString = "";
   let currentZipCodeObj;
   let currentTrimmedDownObj;
-  let counter = 0;
   const endOfZipCodeObj = "    },";
 
-  //const message = fs.createWriteStream("./ZipCodeSeed1.json");
+  const message = fs.createWriteStream("./ZipCodeSeed1.json");
 
   for await (const line of rl) {
     if (line !== endOfZipCodeObj) {
@@ -31,7 +27,7 @@ const LoadZipCodeCentroids = async () => {
       currentZipCodeString = currentZipCodeString.slice(0, -1);
       console.log();
       console.log();
-      console.log("about to parse");
+      console.log("about to parse:");
       // console.log(currentZipCodeString);
       currentZipCodeObj = JSON.parse(currentZipCodeString);
       currentTrimmedDownObj = {
@@ -40,18 +36,13 @@ const LoadZipCodeCentroids = async () => {
         long: currentZipCodeObj.properties.LONGITUDE,
       };
       console.log(JSON.stringify(currentTrimmedDownObj));
-      //message.write(`${JSON.stringify(currentTrimmedDownObj)},\n`);
-      //writeStream.write()
+      message.write(`${JSON.stringify(currentTrimmedDownObj)},\n`);
 
-      console.log();
-      console.log();
       currentZipCodeString = "";
     }
-
-    //message.close();
   }
-};
 
-const Main = async () => {};
+  message.close();
+};
 
 LoadZipCodeCentroids();
