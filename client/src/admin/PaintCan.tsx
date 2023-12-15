@@ -1,10 +1,12 @@
 import { PaintTileProps } from "../types";
+import { useRef } from "react";
 
 interface AdminPaintTypeType extends PaintTileProps {
   onDelete: (id: string) => void;
 }
 
 export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
+  const emailConfirmedRef = useRef<HTMLInputElement>(null);
   const imgStyle = {
     height: "90%",
   };
@@ -27,6 +29,24 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
       });
   };
 
+  const updateEmailConfirmed = () => {
+    fetch("/api/admin/paints", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailConfirmed: emailConfirmedRef.current?.checked,
+        _id: paintUnit._id,
+      }),
+    }).then((x) => {
+      if (x.status === 204) {
+        return true;
+      }
+      return false;
+    });
+  };
+
   return (
     <tr>
       <td>{paintUnit.name}</td>
@@ -37,6 +57,15 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
         ) : (
           <div style={rgbStyle} />
         )}
+      </td>
+      <td>
+        email confirmed?
+        <input
+          type="checkbox"
+          ref={emailConfirmedRef}
+          defaultChecked={paintUnit.emailConfirmed}
+          onChange={updateEmailConfirmed}
+        />
       </td>
       <td>
         <button onClick={deletePaint}>delete</button>

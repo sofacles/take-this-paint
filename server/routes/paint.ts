@@ -22,7 +22,7 @@ const getPaints = async (_, res, next) => {
   try {
     const nearbyPaints = [];
     const radius = 20;
-    const usersZipCode = "98122";
+    const usersZipCode = "98225";
     const paints = await PaintCanModel.find({ emailConfirmed: true });
     for (let paint of paints) {
       const userGeo = await ZipCodeModel.findOne({

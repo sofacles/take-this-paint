@@ -66,7 +66,19 @@ const deletePaint = async (req, res) => {
   });
 };
 
+const updatePaint = async (req, res) => {
+  const { _id, emailConfirmed } = req.body;
+  const paint = await PaintCanModel.findById(_id);
+  if (paint) {
+    paint.emailConfirmed = emailConfirmed;
+    await paint.save();
+    return res.status(204).send();
+  }
+  res.status(400).json({ err: "Paint not found" });
+};
+
 router.get("/", verifyToken, getPaints);
 router.delete("/", verifyToken, deletePaint);
+router.put("/", verifyToken, updatePaint);
 
 export default router;
