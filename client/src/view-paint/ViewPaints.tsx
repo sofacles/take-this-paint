@@ -15,12 +15,13 @@ function ViewPaints() {
   });
 
   useEffect(() => {
-    fetch(`/api/paints?zipCode={zipObj.zipCode}&milesFrom={zipObj.milesFrom}`)
+    document.cookie = `zipCode=${zipObj.zipCode}`;
+    fetch(`/api/paints?zipCode=${zipObj.zipCode}&milesFrom=${zipObj.milesFrom}`)
       .then((resp) => resp.json())
       .then((data) => {
         setPaints(data);
       });
-  }, []);
+  }, [zipObj.milesFrom, zipObj.zipCode]);
 
   const handleZipCodeChange = (distance: number, zip: string) => {
     setZipObj({ milesFrom: distance, zipCode: zip });

@@ -18,16 +18,20 @@ const router = express.Router();
 
 const storage = multer.memoryStorage();
 
-const getPaints = async (_, res, next) => {
+const getPaints = async (req, res, next) => {
   try {
+    const { zipCode, milesFrom } = req.query;
     const nearbyPaints = [];
-    const radius = 20;
-    const usersZipCode = "98225";
+    const radius = isNaN(parseInt(milesFrom)) ? 20 : parseInt(milesFrom);
+    const usersZipCode = zipCode || "98122";
     const paints = await PaintCanModel.find({ emailConfirmed: true });
+    const userGeo = await ZipCodeModel.findOne({
+      zip: usersZipCode,
+    });
+    if (!userGeo) {
+      return res.status(400).json({ msg: "We can't find that zip code" });
+    }
     for (let paint of paints) {
-      const userGeo = await ZipCodeModel.findOne({
-        zip: usersZipCode,
-      });
       const { lat: usersLat, long: usersLon } = userGeo;
       const paintGeo = await ZipCodeModel.findOne({
         zip: paint.zipCode,

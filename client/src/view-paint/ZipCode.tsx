@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Checkmark from "./Checkmark";
 import EditPen from "./EditPen";
 import { ZipCodeFieldsType } from "../types";
-import { FormProvider, register, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 export type ZipCodePropsType = {
   onUpdated: (distance: number, zip: string) => void;
@@ -49,10 +49,20 @@ const ZipCode = (props: ZipCodePropsType) => {
                 value: zipCode,
               })}
             />
-            <div role="button" onClick={() => setEditMode(false)}>
-              <Checkmark />
-            </div>
+            <input type="submit" />
           </div>
+          <p className="my-0 pt-0 text-red-400 ml-10  text-sm">
+            <ErrorMessage
+              errors={errors}
+              name="milesFrom"
+              render={({ message }) => <span className="mr-16">{message}</span>}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="zipCode"
+              render={({ message }) => <span>{message}</span>}
+            />
+          </p>
         </form>
       </FormProvider>
     );
