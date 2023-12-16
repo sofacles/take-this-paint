@@ -44,3 +44,10 @@ export type MessageToDonorFields = {
 };
 
 export type ALLOWED_IDS_FOR_SELECT = "brand" | "quantity" | "sheen";
+
+export type ZipCodeFieldsType = { milesFrom: number; zipCode: string };
+// export type OnZipCodeChangeReturnType = {
+//   milesFrom: number;
+//   zipCode: string;
+//   zipCodeError: string;
+// };
