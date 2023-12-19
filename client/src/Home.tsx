@@ -22,8 +22,8 @@ const Home = () => {
 
       <p>
         You're welcome to test out the site: browse the (currently fake) data,
-        post a new paint but clicking on an existing paint to send an email to
-        the donor of that paint is currently broken.
+        or post a new paint, which will make you the site's first real user.
+        Click on a paint to send a message to its donor.
       </p>
     </div>
   );
