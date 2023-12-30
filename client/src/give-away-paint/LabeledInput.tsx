@@ -21,6 +21,7 @@ const LabeledInput = ({ id, label, inputType = "text" }: LabeledInputProps) => {
         </span>
         <input
           className="ml-10 sm:ml-0 w-2/3 rounded-md"
+          data-testid={`textbox-${id}`}
           {...register(id, { required: `Please add ${aOrAnd(id)} ${id}` })}
           type={inputType}
         />
