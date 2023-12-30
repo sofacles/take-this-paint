@@ -71,6 +71,7 @@ const ColorPicker = ({ onBlur, onColorChosen }: ColorPickerProps) => {
         <div className="w-2/3 flex">
           <button
             className="border border-emerald-800 bg-emerald-300  hover:bg-emerald-100 px-1 text-xs font-medium rounded-md"
+            data-testid="open-color-picker-btn"
             onBlur={onBlur}
             onClick={(e) => {
               e.stopPropagation();

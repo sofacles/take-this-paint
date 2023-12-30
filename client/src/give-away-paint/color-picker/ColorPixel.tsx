@@ -41,6 +41,7 @@ const ColorPixel = ({ r, g, b, updateSelectedValue }: ColorPixelProps) => {
 
   return (
     <div
+      data-testid={`pixel-${hexValue}`}
       className="color-pixel"
       onClick={() => {
         setBlueValue({ ...blueValue, selectedHexValue: hexValue });

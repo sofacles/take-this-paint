@@ -26,7 +26,7 @@ const PersonsWithEmails = () => {
     return (
       <tr key={pwe._id}>
         <BTD title={pwe._id}>{`...${pwe._id.slice(-6)}`}</BTD>
-        <BTD>{`...${pwe.email.slice(-6)}`}</BTD>
+        <BTD title={pwe.email}>{`...${pwe.email.slice(-6)}`}</BTD>
         <BTD>{pwe.secret}</BTD>
         <BTD>
           <input
