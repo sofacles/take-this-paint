@@ -35,7 +35,7 @@ const Login = () => {
       const json = await response.json();
       if (json.message === "User Logged In!") {
         setIsLoggedIn(true);
-        navigate("/adminMessages");
+        navigate("/admin");
       }
     } else {
       setIsLoggedIn(false);

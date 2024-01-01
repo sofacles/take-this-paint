@@ -49,7 +49,7 @@ export const PaintCan = ({ paintUnit, onDelete }: AdminPaintTypeType) => {
   };
 
   return (
-    <tr>
+    <tr data-testid={`tr-paintUnit._id`}>
       <BTD>{paintUnit.name}</BTD>
 
       <BTD>

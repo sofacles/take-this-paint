@@ -1,4 +1,5 @@
 import { PaintCan } from "./PaintCan";
+import Admin from "./Admin";
 import { getAdminPaints } from "./useAdminService";
 
 const PaintChipAdmin = () => {
@@ -14,6 +15,7 @@ const PaintChipAdmin = () => {
 
   return (
     <div>
+      <Admin />
       <table>
         <thead>
           <tr>

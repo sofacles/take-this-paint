@@ -1,4 +1,5 @@
 import { GetAdminMessages, deleteMessage } from "./useAdminService";
+import Admin from "./Admin";
 import BTD from "./BorderedTableCell";
 
 const AdminMessages = () => {
@@ -33,6 +34,7 @@ const AdminMessages = () => {
 
   return (
     <div>
+      <Admin />
       <table>
         <thead>
           <tr>

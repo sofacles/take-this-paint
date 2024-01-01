@@ -4,6 +4,7 @@ import {
   deletePersonWithEmail,
   updateEmailConfirmed,
 } from "./useAdminService";
+import Admin from "./Admin";
 import BTD from "./BorderedTableCell";
 
 type CheckBoxRefType = HTMLInputElement | null;
@@ -58,6 +59,7 @@ const PersonsWithEmails = () => {
 
   return (
     <div>
+      <Admin />
       <h2 className="text-2xl mb-2"> PersonWithEmails </h2>
       <table className="mb-4">
         <thead>

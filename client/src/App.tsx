@@ -82,17 +82,32 @@ function App() {
             }
           />
 
-          <Route
-            path="/admin"
-            element={
-              <Layout>
-                <Admin />
-              </Layout>
-            }
-          >
-            <Route path="paints" index element={<ActivePaints />} />
-            <Route path="messages" element={<AdminMessages />} />
-            <Route path="persons-with-emails" element={<PersonsWithEmails />} />
+          <Route path="/admin">
+            <Route index element={<ActivePaints />} />
+            <Route
+              path="paints"
+              element={
+                <Layout>
+                  <ActivePaints />
+                </Layout>
+              }
+            />
+            <Route
+              path="messages"
+              element={
+                <Layout>
+                  <AdminMessages />
+                </Layout>
+              }
+            />
+            <Route
+              path="persons-with-emails"
+              element={
+                <Layout>
+                  <PersonsWithEmails />
+                </Layout>
+              }
+            />
           </Route>
 
           <Route
