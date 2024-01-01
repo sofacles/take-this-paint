@@ -1,5 +1,5 @@
 describe("template spec", () => {
-  it("passes", () => {
+  it("posts a paint and goes to a thank you page", () => {
     cy.visit("http://localhost:5173/give-away");
 
     cy.get('[data-testid="open-color-picker-btn"]').click();
