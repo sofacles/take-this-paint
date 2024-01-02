@@ -40,7 +40,10 @@ const SendEmailToConfirmEmailAddress = (to, slug) => {
 
 const SendEmailToConfirmEmailAddressAndPaint = (to, slug, paintId) => {
   const encodedEmail = encodeURIComponent(to);
-  const html = `<html><body>Thanks for posting your paint.  Please <a href="${BASE_URL}/confirm-donor-email?email=${encodedEmail}&token=${slug}&paintId=${paintId}">confirm your email.</a></body><html>`;
+  const html = `<html><body><h1>Thanks for posting your paint.</h1> 
+    <div>Please <a href="${BASE_URL}/confirm-donor-email?email=${encodedEmail}&token=${slug}&paintId=${paintId}">confirm your email</a> and we'll start showing your paint to people within 20 miles of your zipcode.<div>
+    <div>When you've successfully gotten rid of your paint, please click this link to <a href="${BASE_URL}/delete-paint?paintId=${paintId}&token=${slug}">delete your paint.</a></div>
+    </body><html>`;
   var mailOptions = {
     from: ADMIN_EMAIL,
     to: to,

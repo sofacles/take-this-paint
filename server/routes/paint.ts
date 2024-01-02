@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
-import { getS3FileUrl, putS3File } from "../data/s3";
+import { deleteFile, getS3FileUrl, putS3File } from "../data/s3";
 import Logger from "../Logger";
 
 import {
@@ -134,7 +134,57 @@ const addPaint = async (req, res) => {
     return res.send({ msg: "Unable to save paint." });
   }
 };
+
+const deletePaint = async (req, res) => {
+  const { paintId, token } = req.query;
+  let doomedPaint = await PaintCanModel.findOne({ _id: paintId });
+  let doomedDonor = await PersonWithEmailModel.findOne({
+    _id: doomedPaint.emailRef,
+  });
+  //It's possible that the donor was deleted using the admin tool.
+  if (doomedDonor) {
+    doomedDonor.deleteOne({ _id: doomedPaint.emailRef }).catch((error: any) => {
+      Logger.error(error);
+      return res.send({
+        status: 400,
+        data: {
+          result:
+            "delete failed, we'll look into it and try to finish the delete later",
+        },
+      });
+    });
+  }
+
+  if (doomedPaint.imageName) {
+    try {
+      await deleteFile(doomedPaint.imageName);
+    } catch (error) {
+      Logger.error(error);
+      return res.send({
+        status: 400,
+        data: {
+          result:
+            "delete image failed, we'll look into it and try to finish the delete later",
+        },
+      });
+    }
+  }
+
+  let deleteResult = await PaintCanModel.deleteOne({ _id: paintId }).catch(
+    (error: any) => {
+      Logger.error(error);
+    }
+  );
+  res.send({
+    status: 200,
+    data: {
+      result: deleteResult.deletedCount === 1 ? "success" : "deleteFailed",
+    },
+  });
+};
+
 router.get("/", getPaints);
 router.post("/", upload.single("uploadPhoto"), addPaint);
+router.delete("/", deletePaint);
 
 export default router;

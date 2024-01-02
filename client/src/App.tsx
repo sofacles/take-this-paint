@@ -3,12 +3,12 @@ import ViewPaints from "./view-paint/ViewPaints";
 import GiveAwayPaint from "./give-away-paint/GiveAwayPaint";
 import Home from "./Home";
 import ThankYou from "./ThankYou";
+import DeletePaint from "./DeletePaint";
 import SendMessage from "./SendMessage";
 import ConfirmEmail from "./ConfirmEmail";
 import ConfirmDonorEmail from "./ConfirmDonorEmail";
 import Layout from "./Layout";
 import { ThirdColorProvider } from "./give-away-paint/third-color/ThirdColorContext";
-import Admin from "./admin/Admin";
 import ActivePaints from "./admin/ActivePaints";
 import AdminMessages from "./admin/Messages";
 import PersonsWithEmails from "./admin/PersonsWithEmails";
@@ -45,6 +45,14 @@ function App() {
             element={
               <Layout>
                 <ConfirmEmail />
+              </Layout>
+            }
+          />
+          <Route
+            path="/delete-paint"
+            element={
+              <Layout>
+                <DeletePaint />
               </Layout>
             }
           />
