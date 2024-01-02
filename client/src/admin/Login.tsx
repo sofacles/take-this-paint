@@ -99,7 +99,10 @@ const Login = () => {
         )}
 
         <div className="flex justify-end">
-          <button className="mx-10 sm:mx-0 bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md">
+          <button
+            className="mx-10 sm:mx-0 bg-emerald-300 border-2 hover:bg-emerald-100 border-emerald-800 p-2 rounded-md"
+            data-testid="loginSubmit"
+          >
             submit
           </button>
         </div>

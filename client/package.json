@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "server": "cd ../server && npm run dev",
+    "e2e": "cypress run ",
     "server:prod": "cd ../server && npm run start:prod",
     "dev": "vite",
     "build": "tsc && vite build",
@@ -36,6 +37,7 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "autoprefixer": "^10.4.16",
     "cypress": "^13.6.2",
+    "dotenv": "^16.3.1",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
