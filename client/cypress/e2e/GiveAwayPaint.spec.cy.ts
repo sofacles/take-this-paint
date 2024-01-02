@@ -34,10 +34,17 @@ describe("template spec", () => {
     nameCell.should("be.visible");
     nameCell.parent().then(($selectedElement) => {
       const row = $selectedElement[0];
+
       for (let i = 0; i < row.children.length; i++) {
         if (row.children[i].childNodes[0].tagName === "BUTTON") {
           rowFound = true;
           cy.wrap(row.children[i].childNodes[0].click());
+        } else if (
+          row.children[i].childNodes.length === 2 &&
+          row.children[i].childNodes[1].tagName === "INPUT"
+        ) {
+          cy.get(row.children[i].childNodes[1]).as("checkbox1");
+          cy.get("@checkbox1").should("not.be.checked");
         }
       }
       cy.wrap(rowFound).should("be.true");
