@@ -24,16 +24,18 @@ You can also tell the paint donor that you'd like to take the paint off their ha
 
 ![error handling on the client with react-hook-form](https://raw.githubusercontent.com/sofacles/take-this-paint/main/server/md_images/usingUseForm.png)
 
+
+
+## Notes
+
+
 ## Where are the unit tests?
 
-Unit tests are coming. My (shameful) lack of unit tests makes me have to spend way too much time manually testing every time I change something.
+Unit tests are coming. I tried to get a vitest test to wait for the "thank you" route after POSTing the paint, but couldn't figure it out. I'm not sure vitest is a great idea for that.  I got a cypress test of posting a paint, seeing the thank you page
 
 ## Roadmap
 
 - Unit tests
 - Write an API that lets me send paint donors an email with which they can eventually delete their posting
 - Some end-to-end Cypress tests
-
-## Notes
-
 I thought about putting fixtures into the cypress tests, which would effectively stub out my addPaint API, but I decided a true E2E actually should write to the DB and my tests should clean up after themselves. Since my data models are in the server project, I could either call a function in server to do that, or move the models into a separate library that could be used by both client and server. A third approach would be to just use the admin pages to delete the newly-added test data. This is slower, but it keeps my code clean for now. In a more complex app it would probably be worth looking at one of the options above.
