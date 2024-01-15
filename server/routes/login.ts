@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import Logger from "../Logger";
-import { UserModel } from "../data/models";
+import { UserModel } from "paint-models";
 import {
   ACCESS_TOKEN_LIFESPAN,
   AUTH_COOKIE_LIFESPAN,

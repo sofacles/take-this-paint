@@ -14,6 +14,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.6",
     "nodemailer-ses-transport": "^1.5.1",
+    "paint-models": "*",
     "prompt-sync": "^4.2.0",
     "sharp": "^0.32.6",
     "typescript": "^5.2.2",

@@ -2,14 +2,14 @@ import express from "express";
 import multer from "multer";
 import { v4 as uuidv4 } from "uuid";
 
-import { deleteFile, getS3FileUrl, putS3File } from "../data/s3";
+import { deleteFile, getS3FileUrl, putS3File } from "paint-models";
 import Logger from "../Logger";
 
 import {
   PaintCanModel,
   PersonWithEmailModel,
   ZipCodeModel,
-} from "../data/models";
+} from "paint-models";
 import GetDistanceBetween from "../data/models/DistanceCalculator";
 
 import { SendEmailToConfirmEmailAddressAndPaint } from "../SendSESMail";

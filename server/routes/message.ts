@@ -5,7 +5,7 @@ import {
   MessageModel,
   PaintCanModel,
   PersonWithEmailModel,
-} from "../data/models";
+} from "paint-models";
 import Logger from "../Logger";
 import { SendEmailToConfirmEmailAddress } from "../SendSESMail";
 

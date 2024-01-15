@@ -2,7 +2,7 @@ import {
   MessageModel,
   PaintCanModel,
   PersonWithEmailModel,
-} from "../data/models";
+} from "paint-models";
 import Logger from "../Logger";
 import { SendEmailToDonor } from "../SendSESMail";
 

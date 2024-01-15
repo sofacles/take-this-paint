@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { UserModel } from "./data/models";
+import { UserModel } from "paint-models";
 import dotEnv from "dotenv";
 
 dotEnv.config();

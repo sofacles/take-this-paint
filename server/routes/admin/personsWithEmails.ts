@@ -1,5 +1,5 @@
 import express from "express";
-import { PersonWithEmailModel } from "../../data/models";
+import { PersonWithEmailModel } from "paint-models";
 import verifyToken from "../../checkLoginMiddleware";
 
 const router = express.Router();

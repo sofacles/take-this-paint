@@ -11,8 +11,7 @@ import adminPaintRouter from "./routes/admin/paint";
 import adminMessageRouter from "./routes/admin/messages";
 import adminPersonsWithEmailsRouter from "./routes/admin/personsWithEmails";
 import { confirmEmail, confirmDonorEmail } from "./routes/email";
-import Connect from "./data/mongooseConnection";
-import { HydrateModels } from "./data/models";
+import { Connect, HydrateModels } from "paint-models";
 import loginRouter from "./routes/login";
 import path from "path";
 

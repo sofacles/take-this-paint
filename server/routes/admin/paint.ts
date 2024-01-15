@@ -1,7 +1,11 @@
 import express from "express";
 import fs from "fs/promises";
-import { PaintCanModel, PersonWithEmailModel } from "../../data/models";
-import { deleteFile, getS3FileUrl } from "../../data/s3";
+import {
+  deleteFile,
+  getS3FileUrl,
+  PaintCanModel,
+  PersonWithEmailModel,
+} from "paint-models";
 import verifyToken from "../../checkLoginMiddleware";
 import Logger from "../../Logger";
 
